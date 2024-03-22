@@ -1,0 +1,43 @@
+---
+title: TermText
+nextjs:
+  metadata:
+    title: TermText
+    description: API reference for the TermText widget.
+---
+
+The TermText widget is a simple text widget that can be used to display text in a terminal. Unlike other terminal libraries it natively supports most text layout CSS properties such as `text-align` or `white-space`.
+
+If using React you won't need to explicitly use `<term:text>` in most cases: the renderer will convert all JSX text nodes into TermText widgets. However, if you wish to attach CSS properties to the text, using the `<term:text>` may be required unless those properties are inheritable.
+
+## Example
+
+```tsx component="XTermExample" rows={50}
+import {useEffect, useState} from 'react';
+import {render}              from 'terminosaurus/react';
+
+function BouncingContainer() {
+  const [width, setWidth] = useState(10);
+
+  useEffect(() => {
+    let current = 10;
+    let direction = 1;
+ 
+    const interval = setInterval(() => {
+      direction = current >= 60 ? -1 : current <= 10 ? 1 : direction;
+      setWidth(current += direction);
+    }, 50);
+
+    setWidth(current);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <term:text border={`modern`} width={width} whiteSpace={`preLine`}>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent faucibus mollis turpis luctus dignissim. Cras quis nisl euismod, efficitur quam eget, euismod metus. Nunc eu elit non lacus suscipit tempus vitae nec sem. Pellentesque ultrices tortor at turpis ullamcorper porta. Maecenas sem mi, maximus a tempus id, tristique nec lacus. Mauris eget purus arcu. Donec id sem a est finibus aliquam.
+    </term:text>
+  );
+}
+
+render(<BouncingContainer/>);
+```

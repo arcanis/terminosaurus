@@ -6,16 +6,24 @@ export async function init() {
   await Promise.all([initMonoLayout(), initYoga()]);
 }
 
-export async function run(opts: RunOptions, cb: (screen: TermScreen) => void | undefined) {
+/**
+ * Create a new TermScreen and run the provided callback. Return a promise that resolves when the screen is closed.
+ */
+export async function run(cb: (screen: TermScreen) => void | undefined): Promise<number>;
+export async function run(opts: RunOptions, cb: (screen: TermScreen) => void | undefined): Promise<number>;
+export async function run(arg1: RunOptions | ((screen: TermScreen) => void | undefined), arg2?: (screen: TermScreen) => void | undefined) {
+  const opts = typeof arg1 === `function` ? {} : arg1;
+  const cb = typeof arg1 === `function` ? arg1 : arg2;
+
   await init();
   const screen = new TermScreen();
   return await screen.run(opts, () => {
-    cb(screen);
+    (cb as any)(screen);
   });
 }
 
 export {TermElement} from '#sources/dom/TermElement';
-export {TermScreen, ScreenIn, ScreenOut, ScreenStreams} from '#sources/dom/TermScreen';
+export {TermScreen, type ScreenIn, type ScreenOut, type ScreenStreams} from '#sources/dom/TermScreen';
 
 export {Ruleset} from '#sources/style/Ruleset';
 export {StyleValues} from '#sources/style/StyleValues';
@@ -28,5 +36,5 @@ export {TermText} from '#sources/elements/TermText';
 export {makeRuleset} from '#sources/style/tools/makeRuleset';
 export {parsePropertyValue} from '#sources/style/tools/parsePropertyValue';
 
-export {EventSlot, Event, EventOf} from '#sources/misc/EventSource';
+export {EventSlot, Event, type EventOf} from '#sources/misc/EventSource';
 export {PassThrough} from '#sources/misc/PassThrough';

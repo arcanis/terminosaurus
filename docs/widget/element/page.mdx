@@ -1,0 +1,101 @@
+---
+title: TermElement
+nextjs:
+  metadata:
+    title: TermElement
+    description: API reference for the TermElement widget.
+---
+
+The TermElement widget is the basis for all other widgets provided by Terminosaurus. It represents a rectangular element, and takes care of positioning the element, computing its bounding boxes, and rendering its borders. The box content is managed by the widget that inherits from TermElement, by overriding its `renderContent` method.
+
+When using React, the TermElement widget is represented by the `<term:div/>` component and is generally used to setup the application layout.
+
+## Events
+
+### `onBlur`
+
+Triggered when the widget loses focus.
+
+### `onCaret`
+
+Triggered when the widget's caret position changes.
+
+### `onClick`
+
+Triggered when the user clicks on the widget.
+
+### `onData`
+
+Triggered when the widget receives multiple bytes from the standard input.
+
+### `onFocus`
+
+Triggered when the widget gains focus. This can only happen if the widget is marked focusable through the `focusEvents` style property.
+
+### `onKeyPress`
+
+Triggered when the widget receives a single byte from the standard input.
+
+### `onLayout`
+
+Triggered when the widget's layout changes.
+
+### `onMouseDown`
+
+Triggered when the mouse button is pressed over the widget.
+
+### `onMouseEnter`
+
+Triggered when the mouse enters the widget's area. This event is similar to `onMouseOver`, but it will not be triggered when the mouse moves from a child widget to the widget itself.
+
+The counterpart of this event is `onMouseLeave`.
+
+### `onMouseLeave`
+
+Triggered when the mouse leaves the widget's area. This event is similar to `onMouseOut`, but it will not be triggered when the mouse moves from the widget to a child widget.
+
+The counterpart of this event is `onMouseEnter`.
+
+### `onMouseMove`
+
+Triggered when the mouse moves over the widget.
+
+### `onMouseOut`
+
+Triggered when the mouse leaves the widget's area. This event is similar to `onMouseLeave`, but it will also be triggered when the mouse moves from the widget to a child widget.
+
+The counterpart of this event is `onMouseOver`.
+
+### `onMouseOver`
+
+Triggered when the mouse enters the widget's area. This event is similar to `onMouseEnter`, but it will also be triggered when the mouse moves from a child widget to the widget itself.
+
+The counterpart of this event is `onMouseOut`.
+
+### `onMouseUp`
+
+Triggered when the mouse button is released over the widget.
+
+### `onMouseWheel`
+
+Triggered when the mouse wheel is used over the widget. If not caught, the engine will try to scroll the first scrollable container it finds.
+
+### `onScroll`
+
+Triggered when the widget's content is scrolled.
+
+## Rendering functions
+
+### `renderContent(x: number, y: number, l: number)`
+
+This method will be automatically called by the widget to render its content. The `x` and `y` parameters represent the place from which the rendering should take place (relative to the widget's content box), and the `l` parameter is the requested length.
+
+It's possible that `renderContent` will be called with a non-zero `x` and a `l` value lower than the widget's width. In this case, the widget should render only the part of the content that fits in the requested length.
+
+This method must always return the requested length. If the widget's content is shorter than the requested length, it should fill the remaining space using `renderBackground`.
+
+The requested length will never span more than one line, so the widget should not worry about line wrapping.
+
+### `renderBackground(l: number)`
+
+This method can be called by the widget's subclasses to obtain a string that represents the widget's background. The `l` parameter is the requested length.

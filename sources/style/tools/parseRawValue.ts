@@ -1,5 +1,4 @@
-import {camelCase, isPlainObject} from 'lodash';
-
+import {camelCase, isPlainObject} from '#sources/misc/utils';
 import {ParserType}               from '#sources/style/styleParsers';
 
 export type Parser =

@@ -1,0 +1,30 @@
+---
+title: TermButton
+nextjs:
+  metadata:
+    title: TermButton
+    description: API reference for the TermButton widget.
+---
+
+The TermButton widget is a very light extension of the TermText widget with some extra configuration more suited for buttons.
+
+```tsx component="XTermExample" rows={1}
+import {TermButton, run} from 'terminosaurus';
+
+run(screen => {
+  const text = new TermButton();
+  text.appendTo(screen.rootNode);
+  text.setDecorated(true);
+  text.setText(`Hello world`);
+});
+```
+
+## Props
+
+### `decorated`
+
+If set, the button will be underlined when the mouse goes over it.
+
+### `submit`
+
+If set, clicking the button will submit the outer form.

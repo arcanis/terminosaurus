@@ -1,0 +1,149 @@
+---
+title: Writing your first app
+nextjs:
+  metadata:
+    title: Writing your first app
+    description: Learn how to write your first terminal app using Terminosaurus.
+---
+
+Now that you [installed](/docs/installation) Terminosaurus, it's time to write your first app. Let's create an `index.ts` file:
+
+## Basic usage
+
+```tsx
+import {run} from 'terminosaurus';
+
+run(screen => {
+  // For now, nothing else.
+});
+```
+
+In this file we imported the `run` function from the `terminosaurus` package and used it to automatically create a screen and run the app. You should prefer using this function over instantiating a `TermScreen` yourself, as it also asynchronously loads the required WASM modules, and wait for the application to complete before returning.
+
+## Showing text
+
+We're now going to start printing some text to the terminal. Replace the `run` function with the following:
+
+```tsx component="XTermExample" rows={1}
+import {TermText, run} from 'terminosaurus';
+
+run(screen => {
+  const text = new TermText();
+  text.appendTo(screen.rootNode);
+  text.setText(`Hello world`);
+});
+```
+
+If you run this script, you'll see your text appear then stay on screen until you press Ctrl+C to exit the application.
+
+## Styling elements
+
+That's a good start, but let's implement something a little more fun. What about a progress bar? To do that, let's create a new file called `progress.ts` that displays just a white bar:
+
+```tsx component="XTermExample" rows={1}
+import {TermElement, color, length, run} from 'terminosaurus';
+
+run(screen => {
+  const bar = new TermElement();
+  bar.appendTo(screen.rootNode);
+
+  bar.style.reset({
+    backgroundColor: color(`white`),
+    height: length(1),
+  });
+});
+```
+
+Take note of how we assigned style properties to the `bar` element. Terminosaurus implements a significant subset of CSS properties, and you see it in action here.
+
+## Live updates
+
+Let's now add some interactivity to this bar; the way Terminosaurus works, all changes performed on your elements will be automatically reflected on the screen. Knowing that, animating the bar's width is just a matter of periodically updating `width`:
+
+```tsx component="XTermExample" rows={1}
+import {TermElement, color, length, run} from 'terminosaurus';
+
+run(screen => {
+  const bar = new TermElement();
+  bar.appendTo(screen.rootNode);
+
+  let width = 0;
+
+  bar.style.reset({
+    backgroundColor: color(`white`),
+    width: length.rel(`${width}%`),
+    height: length(1),
+  });
+
+  const interval = setInterval(() => {
+    width = width < 100 ? width + 1 : 0;
+
+    bar.style.set({
+      width: length.rel(`${width}%`),
+    });
+  }, 16);
+});
+```
+
+## Everything together
+
+Having a progress bar is nice, but it's not very useful if it doesn't represent anything. Let's style it a little bit and add some text to it:
+
+```tsx component="XTermExample" rows={1}
+import {
+  StyleValues,
+  TermElement,
+  TermText,
+  color,
+  length,
+  run,
+} from 'terminosaurus';
+
+run(screen => {
+  const container = new TermElement();
+  container.appendTo(screen.rootNode);
+
+  let width = 0;
+
+  const label = new TermText();
+  label.appendTo(container);
+  label.setText(`Loading in progress`);
+
+  const barContainer = new TermElement();
+  barContainer.appendTo(container);
+
+  const bar = new TermElement();
+  bar.appendTo(barContainer);
+
+  const time = new TermText();
+  time.appendTo(container);
+  time.setText(`${width}%`);
+
+  container.style.reset({
+    flexDirection: StyleValues.FlexDirection.Row,
+  });
+
+  barContainer.style.reset({
+    marginLeft: length(2),
+    marginRight: length(2),
+    flexGrow: 1,
+    flexShrink: 1,
+  });
+
+  bar.style.reset({
+    backgroundColor: color(`white`),
+    width: length.rel(`${width}%`),
+    height: length(1),
+  });
+
+  const interval = setInterval(() => {
+    width = width < 100 ? width + 1 : 0;
+
+    bar.style.set({
+      width: length.rel(`${width}%`),
+    });
+
+    time.setText(`${width}%`);
+  }, 16);
+});
+```

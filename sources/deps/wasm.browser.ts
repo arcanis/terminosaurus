@@ -1,3 +1,3 @@
-export const loadMono = async () => require(`mono-layout/wasm`);
-export const loadOniguruma = async () => require(`vscode-oniguruma/release/onig.wasm`);
-export const loadYogini = async () => require(`yogini/wasm`);
+export const loadMono = async () => (await fetch(require(`mono-layout/wasm`))).arrayBuffer();
+export const loadOniguruma = async () => (await fetch(require(`vscode-oniguruma/release/onig.wasm`))).arrayBuffer();
+export const loadYogini = async () => (await fetch(require(`yogini/wasm`))).arrayBuffer();

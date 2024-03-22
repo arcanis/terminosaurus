@@ -9,7 +9,7 @@ import {TermInput}           from '#sources/elements/TermInput';
 import {EventOf, EventSlot}  from '#sources/misc/EventSource';
 import {AllPropertiesInputs} from '#sources/style/styleProperties';
 import { TermPty } from '../elements/TermPty';
-import { TermButton } from '..';
+import { TermButton, TermText } from '..';
 
 type HasChildren = {children?: React.ReactNode};
 
@@ -37,9 +37,11 @@ declare global {
   namespace JSX {
     interface IntrinsicElements {
       'term:button': AllReactPropsFor<TermButton> & AllReactEventsFor<TermButton> & HasChildren;
+      'term:canvas': AllReactPropsFor<TermCanvas> & AllReactEventsFor<TermCanvas>;
       'term:div': AllReactPropsFor<TermElement> & AllReactEventsFor<TermElement> & HasChildren;
       'term:editor': AllReactPropsFor<TermEditor> & AllReactEventsFor<TermEditor>;
       'term:input': AllReactPropsFor<TermInput> & AllReactEventsFor<TermInput>;
+      'term:text': AllReactPropsFor<TermText> & AllReactEventsFor<TermText> & HasChildren;
       'term:pty': AllReactPropsFor<TermPty> & AllReactEventsFor<TermPty>;
     }
   }
@@ -47,8 +49,10 @@ declare global {
 
 export const ElementMap = new Map([
   [`term:button`, TermButton],
+  [`term:canvas`, TermCanvas],
   [`term:div`, TermElement],
   [`term:editor`, TermEditor],
   [`term:input`, TermInput],
+  [`term:text`, TermText],
   [`term:pty`, TermPty],
 ]);

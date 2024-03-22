@@ -49,6 +49,8 @@ function wrapWithBatch(fn: (e: any) => void, hostContext: HostContext) {
 }
 
 type TriagedProps = {
+  text: string | null;
+
   styles: Map<PropertyName, any>;
   params: Map<string, any>;
 
@@ -62,6 +64,8 @@ function triageProps(hostContext: HostContext, props: Record<string, any>, oldPr
     throw new Error(`wrapWithBatch is not stable`);
 
   const triagedProps: TriagedProps = {
+    text: null,
+
     styles: new Map(),
     params: new Map(),
 
@@ -79,7 +83,7 @@ function triageProps(hostContext: HostContext, props: Record<string, any>, oldPr
       continue;
 
     if (k === `children`) {
-      // Nothing to do!
+      triagedProps.text = typeof v === `string` ? v : null;
     } else if (isPropertyName(k)) {
       triagedProps.styles.set(k, parsePropertyValue(k, v));
     } else if (k.match(eventRegExp) && v) {
@@ -107,6 +111,10 @@ function applyProps(element: any, props: TriagedProps) {
     } else {
       element[`reset${parameterName}`]();
     }
+  }
+
+  if (props.text !== null && element.setText) {
+    element.setText(props.text);
   }
 }
 
@@ -232,6 +240,7 @@ export const HostConfigImplementation: Partial<TermHostConfig> = {
   },
 
   resetTextContent(instance) {
+    (instance.termNode as any).resetText();
   },
 
   commitTextUpdate(textInstance, prevText, nextText) {

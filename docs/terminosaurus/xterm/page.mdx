@@ -1,0 +1,23 @@
+---
+title: terminosaurus/xterm
+nextjs:
+  metadata:
+    title: terminosaurus/xterm
+    description: API reference for the terminosaurus/xterm entry point.
+---
+
+Terminosaurus provides a simple [XTerm.js](https://xtermjs.org/) integration which we use on this very website. It's exposed here for convenience.
+
+## `<XTerm/>`
+
+Creates an XTerm.js terminal that renders anything written to the `stdout` stream and sends anything typed into the terminal to the `stdin` stream. The terminal will have a variable amount of columns depending on its container, and a fixed amount of rows.
+
+```tsx
+import {XTermScreenIn, XTermScreenOut} from 'terminosaurus/xterm';
+// ---cut---
+interface XTermProps {
+    stdin: XTermScreenIn;
+    stdout: XTermScreenOut;
+    rows?: number;
+}
+```

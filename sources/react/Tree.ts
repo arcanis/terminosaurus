@@ -32,7 +32,7 @@ export class ReactElement extends ReactNode {
         node.firstText = node.prev.firstText;
         node.firstText!.updateText();
       } else {
-        node.startText();
+        node.startText(this.termNode);
         this.attach(node, null);
       }
     } else {
@@ -57,7 +57,7 @@ export class ReactElement extends ReactNode {
         node.firstText = node.prev.firstText;
         node.firstText!.updateText();
       } else {
-        const beforeNoText = node.startText();
+        const beforeNoText = node.startText(this.termNode);
         if (!(node.next && node.next instanceof ReactText)) {
           this.attach(node, beforeNoText);
         }
@@ -66,7 +66,7 @@ export class ReactElement extends ReactNode {
       if (node.prev && node.prev instanceof ReactText) {
         node.prev.firstText!.updateText();
         if (before instanceof ReactText) {
-          const beforeNoText = before.startText();
+          const beforeNoText = before.startText(this.termNode);
           this.attach(before, beforeNoText);
         }
       }
@@ -110,12 +110,16 @@ export class ReactElement extends ReactNode {
         this.detach(next);
         next.termNode = null;
 
-        prev.firstText!.startText();
+        prev.firstText!.startText(this.termNode);
       }
     }
   }
 
   private attach(node: ReactNode, before: ReactNode | null) {
+    // We don't attach react text nodes to terminal text nodes
+    if (node instanceof ReactText && this.termNode instanceof TermText)
+      return;
+
     this.termNode.insertBefore(node.termNode!, before?.termNode ?? null);
   }
 
@@ -125,6 +129,7 @@ export class ReactElement extends ReactNode {
 }
 
 export class ReactText extends ReactNode {
+  parentNode?: ReactElement;
   termNode: TermText | null = null;
 
   firstText: ReactText | null = null;
@@ -133,10 +138,12 @@ export class ReactText extends ReactNode {
     super();
   }
 
-  startText() {
-    this.termNode = this.next && this.next instanceof ReactText && this.next.firstText === this.next
-      ? this.next.termNode
-      : new TermText();
+  startText(termNode: TermElement) {
+    this.termNode = termNode instanceof TermText
+      ? termNode
+      : this.next && this.next instanceof ReactText && this.next.firstText === this.next
+        ? this.next.termNode
+        : new TermText();
 
     return this.updateText();
   }

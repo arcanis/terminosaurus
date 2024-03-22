@@ -1,4 +1,7 @@
 {
+  "references": [
+    { "path": "./website" }
+  ],
   "compilerOptions": {
     "declaration": true,
     "esModuleInterop": true,

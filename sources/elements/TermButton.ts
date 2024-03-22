@@ -30,6 +30,9 @@ export class TermButton extends TermText {
   constructor() {
     super();
 
+    this.caret = null;
+    this.readOnly = true;
+
     this.styleManager.addRuleset(ruleset);
 
     const submitForm = () => {

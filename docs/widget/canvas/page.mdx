@@ -1,0 +1,45 @@
+---
+title: TermCanvas
+nextjs:
+  metadata:
+    title: TermCanvas
+    description: API reference for the TermCanvas widget.
+---
+
+The TermCanvas widget is a simple implementation of TermElement that accepts a `render` prop called instead of `renderContent` when rendering the widget.
+
+## Props
+
+### `render`
+
+Function that will be called to render the widget's content. This prop will be called in place of the widget's [`renderContent`]() function and must adhere to the same rules.
+
+## Example
+
+<Callout type={`warning`} title={`A note about performances`}>
+  Keep in mind terminal protocols aren't well designed for high performance graphics. The use of RGB colors in this example makes us transmit at least 13 bytes per cell, which is a lot of data for a terminal to handle.
+</Callout>
+
+```tsx component="XTermExample" rows={10}
+import {TermElement, render} from 'terminosaurus/react';
+
+function renderFn(element: TermElement, x: number, y: number, l: number) {
+  let res = ``;
+
+  for (let t = 0; t < l; ++t) {
+    const r = Math.floor((x + t) / element.contentRect.w * 255);
+    const g = Math.floor(y / element.contentRect.h * 255);
+    const b = 0;
+
+    res += `\x1b[38;2;${r};${g};${b}m█`;
+  }
+
+  return res;
+}
+
+function PrettyColors() {
+  return <term:canvas width={`100%`} height={`100%`} render={renderFn}/>;
+}
+
+render(<PrettyColors/>);
+```

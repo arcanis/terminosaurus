@@ -1,6 +1,6 @@
-import {identity, lowerFirst, mapKeys}                                                                                   from 'lodash';
 import Yoga                                                                                                              from 'yogini';
 
+import {identity, lowerFirst, mapKeys}                                                                                   from '#sources/misc/utils';
 import {StyleValues}                                                                                                     from '#sources/style/StyleValues';
 import {repeat, length, character, color, number, list, optional, inherit, ParserInput, ParserType}                      from '#sources/style/styleParsers';
 import {dirtyLayout, dirtyClipping, dirtyRendering, dirtyRenderList, dirtyFocusList, forwardToYoga, forwardToTextLayout} from '#sources/style/styleTriggers';

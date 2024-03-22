@@ -1,6 +1,6 @@
 import {IBufferCell, Terminal} from '@xterm/xterm';
-import * as pty                from 'node-pty';
 
+import * as pty                from '#sources/deps/node-pty';
 import {TermElement}           from '#sources/dom/TermElement';
 import {makeRuleset}           from '#sources/style/tools/makeRuleset';
 

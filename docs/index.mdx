@@ -1,0 +1,36 @@
+Terminosaurus is a JavaScript library that simplifies the creation of rich terminal applications by encapsulating many concepts familiar to web developers such as layouts, styling, or event handling. It provides two different APIs:
+
+- A DOM-like API intended to be used for smaller scripts and applications.
+- A React renderer for building more complex applications.
+
+## installation
+
+```bash
+yarn add terminosaurus
+```
+
+## Usage
+
+### DOM-like API
+
+More details about the DOM-like API can be found in the [dedicated guide](/docs/guide).
+
+```tsx
+import {TermText, run} from 'terminosaurus';
+
+run(screen => {
+  const text = new TermText();
+  text.appendTo(screen.rootNode);
+  text.setText(`Hello world`);
+});
+```
+
+### React API
+
+More details about the React API can be found in the [dedicated React guide](/docs/react).
+
+```tsx
+import {render} from 'terminosaurus/react';
+
+render(<term:div>Hello world</term:div>);
+```

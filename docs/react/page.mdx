@@ -1,0 +1,60 @@
+---
+title: Using React components
+nextjs:
+  metadata:
+    title: Using React components
+    description: Learn how to leverage React to write your terminal applications.
+---
+
+Terminosaurus provides a native integration allowing you to use React components in your terminal applications. This is useful if you want to create complex user interfaces or if you're already familiar with React.
+
+## Basic usage
+
+Import the `terminosaurus/react` entry point instead of the default one, and call `render` instead of `run`:
+
+```tsx component="XTermExample" rows={1}
+import {render} from 'terminosaurus/react';
+
+render(<term:div>Hello, world!</term:div>);
+```
+
+## CSS styling
+
+The React integration provides more natural bindings for CSS properties:
+
+- Enums are referenced by their name instead of their fully-qualified names (ie you should use `"hidden"` instead of `StyleValues.Overflow.Hidden`).
+- CSS props are top-level rather than aggregated in a separate `style` object (ie you should use `overflow="hidden"` instead of `style={{overflow: "hidden"}}`).
+- Numeric units are interpreted as pixel units (ie `width={100}` is equivalent to `width="100px"`). String units suffixed by `%` are treated as relative sizes.
+
+```tsx component="XTermExample" rows={5}
+import {render} from 'terminosaurus/react';
+
+render(
+  <term:div width={`100%`} height={`100%`} border={`modern`} backgroundColor={`blue`} color={`white`}>
+    Hello, world!
+  </term:div>
+);
+```
+
+## Event handling
+
+You can attach event handlers to React components using the `on` prefix:
+
+```tsx component="XTermExample" rows={1}
+import {useState} from 'react';
+import {render} from 'terminosaurus/react';
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <term:div onClick={() => setCount(count + 1)}>
+      Clicked {count} times
+    </term:div>
+  );
+}
+
+render(
+  <Counter/>
+);
+```

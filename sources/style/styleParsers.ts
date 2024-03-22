@@ -1,8 +1,8 @@
-import {isFinite, isUndefined} from 'lodash';
 import {style}                 from 'term-strings';
 
+import {isFinite, isUndefined} from '#sources/misc/utils';
 import {StyleValues}           from '#sources/style/StyleValues';
-import {colorNames}            from '#sources/style/colorNames.json';
+import colorNames              from '#sources/style/colorNames.json';
 import {Parser, parseRawValue} from '#sources/style/tools/parseRawValue';
 
 export type ParserType<T> =

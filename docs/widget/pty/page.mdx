@@ -1,0 +1,19 @@
+---
+title: TermPty
+nextjs:
+  metadata:
+    title: TermPty
+    description: API reference for the TermPty widget.
+---
+
+The TermPty widget spawns a new process and connects it to a pty. It automatically handles the pty's input and output, forwarding all events it receives to the inner process.
+
+<Callout type={`warning`} title={`Scroll events`}>
+Because there's no way to know whether scroll events are meant for the top-level application or its nested child, scroll events performed on top of the pty widget will always be forwarded to the nested process, and will thus not affect the top-level application.
+</Callout>
+
+## Process management functions
+
+### `spawn(fileName: string, args: string[]): void`
+
+Spawns a new process and connects it to a pty. The `fileName` argument is the name of the executable to run, and the `args` argument is an array of strings to pass as arguments to the executable.

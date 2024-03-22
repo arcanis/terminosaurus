@@ -49,7 +49,7 @@ export function createCanvasElement<T extends object = {}>(spec: CanvasElementSp
     };
 
     const Component = useCallback((props: React.ComponentProps<`term:div`>) => {
-      return <term:div ref={setElRef} {...props}/>;
+      return React.createElement(`term:div`, {ref: setElRef, ...props});
     }, []);
 
     const setProps = useCallback((props: Partial<T> = {}) => {
@@ -84,7 +84,15 @@ const wrap = (element: React.ReactNode, {screen}: {screen: TermScreen}) => (
   </ScreenContext.Provider>
 );
 
-export async function render(opts: RunOptions, element: React.ReactNode) {
+/**
+ * Render a React element into the terminal. Return a promise that resolves when the screen is closed.
+ */
+export async function render(element: React.ReactNode): Promise<void>;
+export async function render(opts: RunOptions, element: React.ReactNode): Promise<void>;
+export async function render(arg1: RunOptions | React.ReactNode, arg2?: React.ReactNode) {
+  const opts = typeof arg2 !== `undefined` ? arg1 as RunOptions : {};
+  const element = typeof arg2 !== `undefined` ? arg2 : arg1 as React.ReactNode;
+
   const {Reconciler} = await require(`#sources/react/Reconciler`) as typeof import('#sources/react/Reconciler');
 
   Reconciler.injectIntoDevTools({

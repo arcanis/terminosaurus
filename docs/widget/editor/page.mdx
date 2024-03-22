@@ -1,0 +1,27 @@
+---
+title: TermEditor
+nextjs:
+  metadata:
+    title: TermEditor
+    description: API reference for the TermEditor widget.
+---
+
+The TermEditor widget is an extension of the TermInput widget that adds syntax highlighting support through [`vscode-textmate`](https://github.com/microsoft/vscode-textmate).
+
+## Props
+
+### `enterIsNewline`
+
+If set, pressing the enter key will insert a newline character instead of submitting the outer form.
+
+### `grammars`
+
+An array of `tmLanguage.json` files to inject into the editor. The Shiki project maintains a package with most available grammars: [`tm-grammars`](https://yarnpkg.com/package?name=tm-grammars).
+
+### `scopeName`
+
+Usually `source.ext`, with `ext` being the file extension of the file being edited (`source.json`, `source.ts`, etc).
+
+### `theme`
+
+A [VSCode theme](https://vscodethemes.com/) in JSON object format. The Shiki project maintains a package with most available themes: [`tm-themes`](https://yarnpkg.com/package?name=tm-themes).
