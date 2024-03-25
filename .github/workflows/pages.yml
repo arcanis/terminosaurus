@@ -11,11 +11,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Checkout template
+        uses: actions/checkout@v4
+        with:
+          ssh-key: '${{secrets.MAEL_DOCS_KEY}}'
+          path: ./mael-docs
+
       - name: Build the website
         run: |
-          eval `ssh-agent -s`
-          ssh-add - <<< '${{secrets.MAEL_DOCS_KEY}}'
-          git clone git@github.com:arcanis/mael-docs
           cd mael-docs
           yarn
           DOCS_DIR=$(realpath ../docs) yarn next build
