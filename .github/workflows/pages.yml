@@ -27,6 +27,7 @@ jobs:
 
       - name: Build the website
         run: |
+          yarn install
           cd mael-docs
           yarn install
           DOCS_DIR=$(realpath ../docs) yarn next build
