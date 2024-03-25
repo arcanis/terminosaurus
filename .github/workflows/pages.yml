@@ -17,6 +17,9 @@ jobs:
           ssh-key: '${{secrets.MAEL_DOCS_KEY}}'
           path: ./mael-docs
 
+      - name: Enable Corepack
+        run: corepack enable
+
       - name: Build the website
         run: |
           cd mael-docs
