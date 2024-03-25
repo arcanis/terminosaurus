@@ -22,9 +22,7 @@ jobs:
 
       - name: Build the website
         run: |
-          cd mael-docs
-          yarn
-          DOCS_DIR=$(realpath ../docs) yarn next build
+          cd mael-docs && yarn && DOCS_DIR=$(realpath ../docs) yarn next build
 
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
