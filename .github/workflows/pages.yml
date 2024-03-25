@@ -14,6 +14,7 @@ jobs:
       - name: Checkout template
         uses: actions/checkout@v4
         with:
+          repository: arcanis/mael-docs
           ssh-key: '${{secrets.MAEL_DOCS_KEY}}'
           path: ./mael-docs
 
@@ -22,7 +23,9 @@ jobs:
 
       - name: Build the website
         run: |
-          cd mael-docs && yarn && DOCS_DIR=$(realpath ../docs) yarn next build
+          cd mael-docs
+          yarn install
+          DOCS_DIR=$(realpath ../docs) yarn next build
 
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
