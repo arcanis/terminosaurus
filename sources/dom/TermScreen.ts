@@ -16,14 +16,6 @@ const decoder = new TextDecoder();
 const DEBUG_COLORS = [`red`, `green`, `blue`, `magenta`, `yellow`];
 let currentDebugColorIndex = 0;
 
-const rafFn = typeof requestAnimationFrame !== `undefined`
-  ? requestAnimationFrame
-  : setImmediate;
-
-const clearFn = typeof cancelAnimationFrame !== `undefined`
-  ? cancelAnimationFrame
-  : clearImmediate;
-
 export type ScreenIn = {
   setRawMode?: (status: boolean) => void;
   addListener(event: `data`, cb: (data: Uint8Array) => void): void;
@@ -65,7 +57,7 @@ export class TermScreen {
   public subscription: ZenObservable.Subscription | null = null;
 
   // A timer used to trigger layout / clipping / render updates after a node becomes dirty
-  public updateTimer: ReturnType<typeof rafFn> | null = null;
+  public updateTimer: Promise<void> | null = null;
 
   //
   public trackOutputSize = false;
@@ -127,10 +119,15 @@ export class TermScreen {
     if (this.updateTimer)
       return;
 
-    this.updateTimer = rafFn(() => {
+    const timer = Promise.resolve().then(() => {
+      if (this.updateTimer !== timer)
+        return;
+
       this.updateTimer = null;
       this.renderScreen();
     });
+
+    this.updateTimer = timer;
   }
 
   private attachScreen({
@@ -354,10 +351,8 @@ export class TermScreen {
   }
 
   renderScreen() {
-    if (this.updateTimer !== null) {
-      clearFn(this.updateTimer as any);
+    if (this.updateTimer !== null)
       this.updateTimer = null;
-    }
 
     this.rootNode.triggerUpdates();
 

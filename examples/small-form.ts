@@ -18,7 +18,7 @@ export function run(screen: TermScreen) {
     const th = n === 1 ? `st` : n === 2 ? `nd` : n === 3 ? `rd` : `th`;
 
     const label = new TermText();
-    label.style.set({fontWeight: StyleValues.Weight.Bold, textDecoration: StyleValues.TextDecoration.Underline});
+    label.style.set({fontWeight: StyleValues.FontWeight.Bold, textDecoration: StyleValues.TextDecoration.Underline});
     label.setText(`The ${n}${th} form entry`);
     label.appendTo(container);
 

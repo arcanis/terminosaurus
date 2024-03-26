@@ -1,23 +1,32 @@
 export const navigation = [{
   title: `Introduction`,
   links: [{
-    title: `Getting started`,
-    href: `/`,
+    title: `Overview`,
+    href: `/docs/overview`,
   }, {
     title: `Installation`,
     href: `/docs/installation`,
   }],
 }, {
-  title: `Core concepts`,
+  title: `Tutorials`,
   links: [{
     title: `Writing your first app`,
     href: `/docs/guide`,
   }, {
-    title: `Using React components`,
+    title: `Integrating with React`,
     href: `/docs/react`,
+  }],
+}, {
+  title: `Examples`,
+  links: [{
+    title: `Bouncing ball`,
+    href: `/docs/examples/bouncing-ball`,
   }, {
-    title: `Hot module reloading`,
-    href: `/docs/hmr`,
+    title: `Code editor`,
+    href: `/docs/examples/code-editor`,
+  }, {
+    title: `Simple form`,
+    href: `/docs/examples/simple-form`,
   }],
 }, {
   title: `Entry points`,
@@ -59,15 +68,9 @@ export const navigation = [{
     href: `/docs/widget/text`,
   }],
 }, {
-  title: `Contributing`,
+  title: `Development`,
   links: [{
     title: `How to contribute`,
     href: `/docs/how-to-contribute`,
-  }, {
-    title: `Architecture guide`,
-    href: `/docs/architecture-guide`,
-  }, {
-    title: `Design principles`,
-    href: `/docs/design-principles`,
   }],
 }];

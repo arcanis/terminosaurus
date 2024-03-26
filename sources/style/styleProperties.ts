@@ -107,7 +107,7 @@ export const styleParsers = {
   paddingTop: tuple([length.rel, length, inherit]),
   paddingBottom: tuple([length.rel, length, inherit]),
 
-  fontWeight: tuple([pick(StyleValues.Weight), inherit]),
+  fontWeight: tuple([pick(StyleValues.FontWeight), inherit]),
   textAlign: tuple([pick(StyleValues.TextAlign), inherit]),
   textDecoration: tuple([pick(StyleValues.TextDecoration), null, inherit]),
   whiteSpace: tuple([pick(StyleValues.WhiteSpace), inherit]),
@@ -355,7 +355,7 @@ export const physicalProperties = {
     parsers: styleParsers.fontWeight,
     triggers: [dirtyRendering],
     initial: StyleValues.Inherit,
-    default: StyleValues.Weight.Normal,
+    default: StyleValues.FontWeight.Normal,
   },
 
   textAlign: {

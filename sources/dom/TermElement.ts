@@ -970,9 +970,9 @@ export class TermElement extends TermNode<TermElement> {
     let prefix = ``;
     let suffix = ``;
 
-    if (this.styleManager.computed.fontWeight === StyleValues.Weight.Light)
+    if (this.styleManager.computed.fontWeight === StyleValues.FontWeight.Light)
       prefix += style.fainted.in;
-    else if (this.styleManager.computed.fontWeight === StyleValues.Weight.Bold)
+    else if (this.styleManager.computed.fontWeight === StyleValues.FontWeight.Bold)
       prefix += style.emboldened.in;
 
     if (this.styleManager.computed.textDecoration === StyleValues.TextDecoration.Underline)

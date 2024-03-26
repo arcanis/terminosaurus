@@ -6,7 +6,10 @@ import * as terminosaurus from 'terminosaurus';
 import React, {useEffect, useRef} from 'react';
 import {PassThrough} from 'stream';
 
-export function XTermRun({code, rows}: {code: string, rows?: number}) {
+import grammar from '#data/languages/TypeScript.tmLanguage.json';
+import theme   from '#data/themes/WinterIsComing.json';
+
+export function XTermRun({className = ``, code, rows}: {className?: string, code: string, rows?: number}) {
     const stdin = useRef<XTermScreenIn>();
     if (!stdin.current)
         stdin.current = new PassThrough();
@@ -18,8 +21,11 @@ export function XTermRun({code, rows}: {code: string, rows?: number}) {
         stdout.current.rows = 24;
     }
 
+    const cleanupRef = useRef<() => void>();
+
     useEffect(() => {
-        const fn = new Function(`React, module, exports, require`, code);
+        if (cleanupRef.current)
+            return;
 
         const run = (arg1?: any, arg2?: any) => {
             const opts = typeof arg1 === `function` ? {} : {...arg1};
@@ -55,6 +61,8 @@ export function XTermRun({code, rows}: {code: string, rows?: number}) {
             [`react`]: React,
             [`terminosaurus`]: patchedTerminosaurus,
             [`terminosaurus/react`]: patchedTerminosaurusReact,
+            [`#data/languages/TypeScript.tmLanguage.json`]: {default: grammar},
+            [`#data/themes/WinterIsComing.json`]: {default: theme},
         };
 
         const module = {exports: {}};
@@ -65,10 +73,118 @@ export function XTermRun({code, rows}: {code: string, rows?: number}) {
             return (vendors as any)[p];
         };
 
-        fn(React, module, module.exports, require);
+        const rafTimers = new Set<number>();
+
+        const fakeRequestAnimationFrame = (cb: () => void) => {
+            const id = requestAnimationFrame(() => {
+                rafTimers.delete(id);
+                cb();
+            });
+
+            rafTimers.add(id);
+            return id;
+        };
+
+        const fakeClearAnimationFrame = (id: number) => {
+            cancelAnimationFrame(id);
+            rafTimers.delete(id);
+        };
+
+        const interalTimers = new Set<ReturnType<typeof setInterval>>();
+
+        const fakeSetInterval = (cb: () => void, ms: number) => {
+            const id = setInterval(cb, ms);
+            interalTimers.add(id);
+            return id;
+        };
+
+        const fakeClearInterval = (id: ReturnType<typeof setInterval>) => {
+            clearInterval(id);
+            interalTimers.delete(id);
+        };
+
+        const timeoutTimers = new Set<ReturnType<typeof setTimeout>>();
+
+        const fakeSetTimeout = (cb: () => void, ms: number) => {
+            const id = setTimeout(() => {
+                timeoutTimers.delete(id);
+                cb();
+            }, ms);
+
+            timeoutTimers.add(id);
+            return id;
+        };
+
+        const fakeClearTimeout = (id: ReturnType<typeof setTimeout>) => {
+            clearTimeout(id);
+            timeoutTimers.delete(id);
+        };
+
+        const fn = new Function(`
+            React,
+            
+            module,
+            exports,
+            require,
+
+            requestAnimationFrame,
+            cancelAnimationFrame,
+
+            setInterval,
+            clearInterval,
+
+            setTimeout,
+            clearTimeout,
+        `, code);
+
+        fn(
+            React,
+            
+            module,
+            module.exports,
+            require,
+            
+            fakeRequestAnimationFrame,
+            fakeClearAnimationFrame,
+            fakeSetInterval,
+            fakeClearInterval,
+            fakeSetTimeout,
+            fakeClearTimeout,
+        );
+
+        cleanupRef.current = () => {
+            for (const id of rafTimers)
+                cancelAnimationFrame(id);
+
+            for (const id of interalTimers)
+                clearInterval(id);
+
+            for (const id of timeoutTimers)
+                clearTimeout(id);
+
+            rafTimers.clear();
+            interalTimers.clear();
+            timeoutTimers.clear();
+        };
+
+        return () => {
+            if (cleanupRef.current) {
+                cleanupRef.current();
+            }
+        };
     }, []);
 
-    return <pre><code>
-        <XTerm stdin={stdin.current} stdout={stdout.current} rows={rows}/>
-    </code></pre>;
+    return (
+        <pre className={`mt-0 ${className} flex flex-col`}>
+            <div className={`flex space-x-2 mb-4 flex-none`}>
+                <div className={`w-2 h-2 rounded-full bg-red-300`}/>
+                <div className={`w-2 h-2 rounded-full bg-yellow-300`}/>
+                <div className={`w-2 h-2 rounded-full bg-green-300`}/>
+            </div>
+
+            <code className={`flex flex-1`}>
+                <XTerm className={`w-full`} stdin={stdin.current} stdout={stdout.current} rows={rows}/>
+            </code>
+        </pre>
+    );
 }

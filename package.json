@@ -1,6 +1,6 @@
 {
   "name": "terminosaurus",
-  "version": "0.0.1",
+  "version": "3.0.0-rc.1",
   "packageManager": "yarn@4.1.0+sha224.bc24d7f5afc738464f3d4e95f4e6e7829a35cee54a0fd527ea5baa83",
   "workspaces": [
     "website"
@@ -15,8 +15,8 @@
     "#data/*.json": "./data/*.json",
     "#sources/*.json": "./sources/*.json",
     "#sources/deps/node-pty": {
-      "browser": "./sources/deps/node-pty.browser.ts",
-      "default": "./sources/deps/node-pty.ts"
+      "node": "./sources/deps/node-pty.node.ts",
+      "default": "./sources/deps/node-pty.unsupported.ts"
     },
     "#sources/deps/wasm": {
       "browser": "./sources/deps/wasm.browser.ts",

@@ -93,7 +93,7 @@ export const StyleValues = {
     `BreakWord`,
   ]),
 
-  Weight: enumToStyle([
+  FontWeight: enumToStyle([
     `Light`,
     `Normal`,
     `Bold`,

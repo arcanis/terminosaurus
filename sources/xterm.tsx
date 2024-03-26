@@ -17,7 +17,7 @@ export type XTermScreenOut = ScreenOut & {
     off: (event: string, cb: Function) => void;
 };
 
-class HorizontalFitAddon extends FitAddon {
+class CustomFitAddon extends FitAddon {
     public rows?: number;
 
     override proposeDimensions() {
@@ -25,14 +25,16 @@ class HorizontalFitAddon extends FitAddon {
         if (!dims)
             return;
 
-        const rows = this.rows ?? (this as any)._terminal.rows as number;
-        return {...dims, rows};
+        if (!this.rows)
+            return dims;
+
+        return {...dims, rows: this.rows};
     }
 }
 
 type XTermState = {
     terminal: Terminal,
-    fitAddon: HorizontalFitAddon,
+    fitAddon: CustomFitAddon,
 };
 
 function createXTerm(stdinRef: React.MutableRefObject<XTermScreenIn | undefined>, stdoutRef: React.MutableRefObject<XTermScreenOut | undefined>): XTermState {
@@ -45,7 +47,7 @@ function createXTerm(stdinRef: React.MutableRefObject<XTermScreenIn | undefined>
         },
     });
 
-    const fitAddon = new HorizontalFitAddon();
+    const fitAddon = new CustomFitAddon();
     terminal.loadAddon(fitAddon);
 
     terminal.onData(data => {
@@ -71,7 +73,7 @@ function createXTerm(stdinRef: React.MutableRefObject<XTermScreenIn | undefined>
     };
 }
 
-export function XTerm({stdin, stdout, rows = 24}: {stdin: XTermScreenIn, stdout: XTermScreenOut, rows?: number}) {
+export function XTerm({className = ``, stdin, stdout, rows}: {className?: string, stdin: XTermScreenIn, stdout: XTermScreenOut, rows?: number}) {
     const stdinRef = useRef<XTermScreenIn>();
     const stdoutRef = useRef<XTermScreenOut>();
 
@@ -82,6 +84,14 @@ export function XTerm({stdin, stdout, rows = 24}: {stdin: XTermScreenIn, stdout:
     useEffect(() => {
         stdinRef.current = stdin;
     }, [stdin]);
+
+    useEffect(() => {
+        if (!termStateRef.current)
+            return;
+
+        termStateRef.current.fitAddon.rows = rows;
+        termStateRef.current.fitAddon.fit();
+    }, [rows]);
 
     useEffect(() => {
         stdoutRef.current = stdout;
@@ -128,5 +138,5 @@ export function XTerm({stdin, stdout, rows = 24}: {stdin: XTermScreenIn, stdout:
         fitAddon.fit();
     }, [rows]);
 
-    return <div ref={handleRef}/>;
+    return <div className={className} ref={handleRef}/>;
 }

@@ -1,0 +1,60 @@
+---
+title: Overview
+nextjs:
+  metadata:
+    title: Overview
+    description: Learn about Terminosaurus, a free and open-source terminal GUI library.
+---
+
+## What is Terminosaurus?
+
+Terminosaurus is an open-source terminal GUI library that allows you to create terminal applications with ease. It doesn't depend on any specific framework, but provides a powerful React renderer that you can use to create complex terminal applications.
+
+## Quick example
+
+Here's a simple example of a Terminosaurus application:
+
+```tsx component="XTermExample" rows={3}
+import {StyleValues, TermText, length, run} from 'terminosaurus';
+
+run(screen => {
+    const text = new TermText();
+    text.setText('Hello, world!');
+    text.appendTo(screen.rootNode);
+
+    text.style.reset({
+        border: StyleValues.Border.Modern,
+        padding: [length(0), length(1)],
+        fontWeight: StyleValues.FontWeight.Bold,
+    });
+});
+```
+
+And here's the exact same application, but using JSX:
+
+```tsx component="XTermExample" rows={3}
+import {render} from 'terminosaurus/react';
+
+render(
+    <term:div border={`modern`} padding={[0, 1]} fontWeight={`bold`}>
+        Hello, world!
+    </term:div>
+);
+```
+
+## Comparison to other libraries
+
+### Blessed
+
+Blessed is an old, popular but unmaintained terminal GUI library for Node.js. Being so old, its API are fairly simple but lack flexibility, power, and performances. Terminosaurus is more modern and provides a powerful React renderer that allows you to create complex terminal applications with ease.
+
+Blessed also doesn't integrate well with complex layouts, such as flexbox, and doesn't provide a way to easily create reusable components.
+
+### Ink
+
+Terminosaurus is similar to [Ink](https://github.com/vadimdemedes/ink), but is more powerful. While Ink leverages the same layout library as Terminosaurus and also provides an integrated React renderer, it lacks a couple of important features:
+
+- It cannot run without React, making it difficult to use in very simple scripts.
+- It doesn't support scrolling ([#222](https://github.com/vadimdemedes/ink/issues/222)).
+- It doesn't support advanced text layout (`white-space`, `text-align`, etc).
+- Text nodes must be wrapped within `<Text>`, which can be cumbersome.
