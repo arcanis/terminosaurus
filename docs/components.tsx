@@ -2,6 +2,7 @@ import fs from 'fs';
 import {transpile} from 'drdoc/src/lib/transpile';
 
 import {XTermRun} from './XTermRun';
+import path from 'path';
 
 export function XTermExample({code, rows, children}: {code: string, rows?: number, children: React.ReactNode}) {
     return <div>
@@ -27,7 +28,7 @@ const spawn = `
 `;
 
 export async function XTermFullExample({path}: {path: string}) {
-    const code = await fs.promises.readFile(`../examples/${path}`, `utf8`);
+    const code = await fs.promises.readFile(`${process.env.DOCS_DIR!}/../examples/${path}`, `utf8`);
 
     return (
         <XTermRun className={`absolute inset-4`} code={transpile(code) + spawn}/>
