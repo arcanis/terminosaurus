@@ -55,21 +55,21 @@ export const config = {
 
   featured: [{
     title: `Type Safe`,
-    description: `Clipanion provides type inference for the options you declare: no duplicated types to write and keep in sync.`,
+    description: `Everything, including style properties and event handlers, is strongly typed.`,
   }, {
-    title: `Tooling Integration`,
-    description: `Because it uses standard ES6 classes, tools like ESLint can easily lint your options to detect the unused ones.`,
+    title: `No Dependencies`,
+    description: `The React renderer is entirely optional, and the core library is framework agnostic.`,
   }, {
-    title: `Feature Complete`,
-    description: `Clipanion supports subcommands, arrays, counters, execution contexts, error handling, option proxying, and much more.`,
+    title: `React Integration`,
+    description: `Terminosaurus lets you use React to author your GUIs, simplifying state management.`,
   }, {
-    title: `Soundness`,
-    description: `Clipanion unifies your commands into a proper state machine. It gives little room for bugs, and unlocks command overloads.`,
+    title: `CSS Support`,
+    description: `Terminosaurus supports many of the CSS properties you're used to - text-decoration, background-color, ...`,
   }, {
-    title: `Tree Shaking`,
-    description: `The core is implemented using a functional approach, letting most bundlers only keep what you actually use.`,
+    title: `Fast Updates`,
+    description: `Terminosaurus tries to only redraw components that changed, even if you don't use memoization patterns.`,
   }, {
-    title: `Battle Tested`,
-    description: `Clipanion is used to power Yarn - likely one of the most complex CLI used everyday by the JavaScript community.`,
+    title: `Advanced Layouts`,
+    description: `Terminosaurus supports flexbox layouts, but also relative and absolute positioning, overflow, scrolling, and more.`,
   }],
 };

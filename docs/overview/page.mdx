@@ -42,19 +42,20 @@ render(
 );
 ```
 
-## Comparison to other libraries
+## Comparison table
 
-### Blessed
+| Feature | Terminosaurus | Ink | Blessed |
+| --- | --- | --- | --- |
+| **Framework-agnostic API** | ✅ | ❌ | ❌ |
+| **React renderer** | ✅ | ✅ | ⚠️ ¹ |
+| **Flexbox layout** | ✅ | ✅ | ❌ |
+| **Relative / absolute positioning** | ✅ | ❌ | ❌ |
+| **Focus management** | ✅ | ✅ | ❌ |
+| **Scrolling** | ✅ | ❌ | ❌ |
+| **Text alignment** | ✅ | ❌ | ❌ |
+| **Text wrapping** | ✅ | ❌ | ❌ |
+| **CSS properties** | ✅ | ✅ ² | ❌ |
 
-Blessed is an old, popular but unmaintained terminal GUI library for Node.js. Being so old, its API are fairly simple but lack flexibility, power, and performances. Terminosaurus is more modern and provides a powerful React renderer that allows you to create complex terminal applications with ease.
+¹ Blessed kinda supports React 17 thanks to [react-blessed](https://github.com/yomguithereal/react-blessed), but it's unmaintained.
 
-Blessed also doesn't integrate well with complex layouts, such as flexbox, and doesn't provide a way to easily create reusable components.
-
-### Ink
-
-Terminosaurus is similar to [Ink](https://github.com/vadimdemedes/ink), but is more powerful. While Ink leverages the same layout library as Terminosaurus and also provides an integrated React renderer, it lacks a couple of important features:
-
-- It cannot run without React, making it difficult to use in very simple scripts.
-- It doesn't support scrolling ([#222](https://github.com/vadimdemedes/ink/issues/222)).
-- It doesn't support advanced text layout (`white-space`, `text-align`, etc).
-- Text nodes must be wrapped within `<Text>`, which can be cumbersome.
+² Ink also supports some CSS properties, but not as much as Terminosaurus.
