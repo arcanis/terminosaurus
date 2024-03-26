@@ -49,6 +49,9 @@ run({}, async screen => {
 
 ```tsx
 import {
+    useState
+} from 'react'
+import {
     render,
 } from 'terminosaurus/react';
 
