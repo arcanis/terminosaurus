@@ -38,7 +38,7 @@ const RAW_RUNTIME_STATE =
           ["esbuild", "npm:0.20.1"],\
           ["lorem-ipsum", "npm:2.0.8"],\
           ["mono-layout", "npm:0.14.3"],\
-          ["node-pty", "npm:1.0.0"],\
+          ["node-pty", "npm:1.1.0-beta27"],\
           ["react", "npm:18.2.0"],\
           ["react-reconciler", "virtual:94d85169d29260b76ffb0219eec7ea8a47862ee24c417cc67801a50351aabc75e3f1a8e4fb27a447fea9891b861552e01dce89d0e4e10725cf4ae6f3f194f720#npm:0.29.0"],\
           ["react-refresh", "npm:0.14.0"],\
@@ -2226,16 +2226,6 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
-    ["nan", [\
-      ["npm:2.18.0", {\
-        "packageLocation": "./.yarn/unplugged/nan-npm-2.18.0-a51ed5bed5/node_modules/nan/",\
-        "packageDependencies": [\
-          ["nan", "npm:2.18.0"],\
-          ["node-gyp", "npm:10.0.1"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
     ["nanoid", [\
       ["npm:3.3.7", {\
         "packageLocation": "../.yarn/berry/cache/nanoid-npm-3.3.7-98824ba130-10c0.zip/node_modules/nanoid/",\
@@ -2250,6 +2240,16 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../.yarn/berry/cache/negotiator-npm-0.6.3-9d50e36171-10c0.zip/node_modules/negotiator/",\
         "packageDependencies": [\
           ["negotiator", "npm:0.6.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["node-addon-api", [\
+      ["npm:7.1.1", {\
+        "packageLocation": "./.yarn/unplugged/node-addon-api-npm-7.1.1-bfb302df19/node_modules/node-addon-api/",\
+        "packageDependencies": [\
+          ["node-addon-api", "npm:7.1.1"],\
+          ["node-gyp", "npm:10.0.1"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -2274,11 +2274,11 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["node-pty", [\
-      ["npm:1.0.0", {\
-        "packageLocation": "./.yarn/unplugged/node-pty-npm-1.0.0-42598239ac/node_modules/node-pty/",\
+      ["npm:1.1.0-beta27", {\
+        "packageLocation": "./.yarn/unplugged/node-pty-npm-1.1.0-beta27-5944393638/node_modules/node-pty/",\
         "packageDependencies": [\
-          ["node-pty", "npm:1.0.0"],\
-          ["nan", "npm:2.18.0"],\
+          ["node-pty", "npm:1.1.0-beta27"],\
+          ["node-addon-api", "npm:7.1.1"],\
           ["node-gyp", "npm:10.0.1"]\
         ],\
         "linkType": "HARD"\
@@ -3083,7 +3083,7 @@ const RAW_RUNTIME_STATE =
           ["esbuild", "npm:0.20.1"],\
           ["lorem-ipsum", "npm:2.0.8"],\
           ["mono-layout", "npm:0.14.3"],\
-          ["node-pty", "npm:1.0.0"],\
+          ["node-pty", "npm:1.1.0-beta27"],\
           ["react", "npm:18.2.0"],\
           ["react-reconciler", "virtual:94d85169d29260b76ffb0219eec7ea8a47862ee24c417cc67801a50351aabc75e3f1a8e4fb27a447fea9891b861552e01dce89d0e4e10725cf4ae6f3f194f720#npm:0.29.0"],\
           ["react-refresh", "npm:0.14.0"],\

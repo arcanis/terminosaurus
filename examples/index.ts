@@ -40,7 +40,7 @@ runExit(class Main extends Command {
   }
 
   async executeJsApi(streams: ScreenStreams) {
-    const demo = await import(path.resolve(this.examplePath));
+    const {default: demo} = await import(path.resolve(this.examplePath));
 
     return run(streams, screen => {
       const animate = demo.run(screen);
@@ -51,7 +51,7 @@ runExit(class Main extends Command {
   }
 
   async executeJsxApi(streams: ScreenStreams) {
-    const demo = await import(path.resolve(this.examplePath));
+    const {default: demo} = await import(path.resolve(this.examplePath));
 
     return render(streams, React.createElement(demo.App));
   }

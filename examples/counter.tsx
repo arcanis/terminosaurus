@@ -16,7 +16,7 @@ export function App(screen: TermScreen) {
 
   return (
     <term:div onClick={handleClick}>
-      Counter is {counter}
+      Counter is {counter}; click on me!
     </term:div>
   );
 }

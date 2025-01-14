@@ -28,7 +28,7 @@
     "@arcanis/slice-ansi": "^2.0.1",
     "@xterm/addon-fit": "^0.9.0",
     "mono-layout": "^0.14.3",
-    "node-pty": "^1.0.0",
+    "node-pty": "1.1.0-beta27",
     "react-reconciler": "^0.29.0",
     "react-refresh": "^0.14.0",
     "term-strings": "^0.15.2",
