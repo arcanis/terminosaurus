@@ -421,13 +421,11 @@ function AnthropicApp() {
             {currentDiscussion.messages.length === 0 && !isProcessing && (
               <term:div flexDirection="column">
                 <term:text color="yellow" fontWeight="bold" marginBottom={1}>Welcome to the Terminosaurus Anthropic Chat!</term:text>
-                <term:text marginBottom={1}>This is a terminal-based chat interface for {hyperlink(`Anthropic`, `https://anthropic.ai/`)}. To use this application:</term:text>
-                <term:text marginBottom={1}>1. Make sure Anthropic is installed and running locally</term:text>
-                <term:text marginBottom={1}>2. Run "launchctl setenv ANTHROPIC_HOST 127.0.0.1" to allow CORS requests</term:text>
-                <term:text marginBottom={1}>3. Type your message in the input box below and press Enter</term:text>
-                <term:text marginBottom={1}>4. Use /new to start a new conversation</term:text>
-                <term:text marginBottom={1}>5. Select your preferred model version at the top of the discussions list</term:text>
-                <term:text color="gray">Note: This application requires Anthropic to be running locally with the {currentDiscussion.model} model installed.</term:text>
+                <term:text marginBottom={1}>This is a terminal-based chat interface for {hyperlink(`Anthropic`, `https://anthropic.com/`)}. To use this application:</term:text>
+                <term:text marginBottom={1}>1. Click the yellow banner to set your API key</term:text>
+                <term:text marginBottom={1}>2. Type your message in the input box below and press Enter</term:text>
+                <term:text marginBottom={1}>3. Use /new to start a new conversation</term:text>
+                <term:text color="gray">Note: The Anthropic API key is only used locally to make API calls. It will never be transmitted to any other server.</term:text>
               </term:div>
             )}
 
