@@ -7,6 +7,7 @@ import {makeRuleset}   from '#sources/style/tools/makeRuleset';
 const ruleset = makeRuleset({
   [`*`]: {
     whiteSpace: StyleValues.WhiteSpace.Pre,
+    overflow: StyleValues.Overflow.Scroll,
     focusEvents: true,
   },
   [`:decorated`]: {

@@ -93,6 +93,11 @@ export const StyleValues = {
     `BreakWord`,
   ]),
 
+  FontStyle: enumToStyle([
+    `Normal`,
+    `Italic`,
+  ]),
+
   FontWeight: enumToStyle([
     `Light`,
     `Normal`,
@@ -139,9 +144,15 @@ export const StyleValues = {
   Overflow: {
     Hidden: {
       doesHideOverflow: true,
+      doesAllowScroll: false,
     },
     Visible: {
       doesHideOverflow: false,
+      doesAllowScroll: false,
+    },
+    Scroll: {
+      doesHideOverflow: true,
+      doesAllowScroll: true,
     },
   },
 

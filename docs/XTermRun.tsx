@@ -4,6 +4,9 @@ import * as terminosaurusReact from 'terminosaurus/react';
 import {XTerm, XTermScreenIn, XTermScreenOut}  from 'terminosaurus/xterm';
 import * as terminosaurus from 'terminosaurus';
 import React, {useEffect, useRef} from 'react';
+import ollama from 'ollama/browser';
+import * as reactRedux from 'react-redux';
+import * as reduxToolkit from '@reduxjs/toolkit';
 import {PassThrough} from 'stream';
 
 import grammar from '#data/languages/TypeScript.tmLanguage.json';
@@ -61,6 +64,9 @@ export function XTermRun({className = ``, code, rows}: {className?: string, code
             [`react`]: React,
             [`terminosaurus`]: patchedTerminosaurus,
             [`terminosaurus/react`]: patchedTerminosaurusReact,
+            [`ollama`]: {default: ollama},
+            [`react-redux`]: reactRedux,
+            [`@reduxjs/toolkit`]: reduxToolkit,
             [`#data/languages/TypeScript.tmLanguage.json`]: {default: grammar},
             [`#data/themes/WinterIsComing.json`]: {default: theme},
         };

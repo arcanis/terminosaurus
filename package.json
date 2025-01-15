@@ -1,6 +1,6 @@
 {
   "name": "terminosaurus",
-  "version": "3.0.0-rc.2",
+  "version": "3.0.0-rc.3",
   "packageManager": "yarn@4.1.0+sha224.bc24d7f5afc738464f3d4e95f4e6e7829a35cee54a0fd527ea5baa83",
   "workspaces": [
     "website"
@@ -31,13 +31,14 @@
     "node-pty": "1.1.0-beta27",
     "react-reconciler": "^0.29.0",
     "react-refresh": "^0.14.0",
-    "term-strings": "^0.15.2",
+    "term-strings": "^0.16.0",
     "vscode-oniguruma": "^1.7.0",
     "vscode-textmate": "^8.0.0",
     "yogini": "^0.4.2",
     "zen-observable": "^0.9.0"
   },
   "devDependencies": {
+    "@reduxjs/toolkit": "^2.5.0",
     "@types/node": "^20.11.24",
     "@types/react": "^18.0.26",
     "@types/react-reconciler": "^0.28.0",
@@ -47,7 +48,9 @@
     "clipanion": "^3.2.1",
     "esbuild": "^0.20.1",
     "lorem-ipsum": "^2.0.8",
+    "ollama": "^0.5.12",
     "react": "^18.2.0",
+    "react-redux": "^9.2.0",
     "tailwindcss": "^3.4.1",
     "tsx": "^4.7.1",
     "typescript": "^5.3.3",

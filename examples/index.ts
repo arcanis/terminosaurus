@@ -11,17 +11,20 @@ import {
   render,
   run,
 } from 'terminosaurus/react';
+import { RunOptions } from '../sources/dom/TermScreen';
 
 runExit(class Main extends Command {
+  public debugPaintRects = Option.Boolean(`--debug-paint-rects`, false);
   public logOutput = Option.Boolean(`--log-output`, false);
   public console = Option.String(`--console`);
 
   public examplePath = Option.String();
 
   async execute() {
-    let streams: ScreenStreams = {
+    let streams: ScreenStreams & RunOptions = {
       stdin: this.context.stdin,
       stdout: this.context.stdout,
+      debugPaintRects: this.debugPaintRects,
     };
 
     if (this.logOutput) {

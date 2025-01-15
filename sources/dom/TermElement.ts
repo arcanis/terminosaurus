@@ -699,7 +699,7 @@ export class TermElement extends TermNode<TermElement> {
         const prevScrollX = this.scrollRect.x;
         const prevScrollY = this.scrollRect.y;
 
-        if (!this.styleManager.computed.overflow.doesHideOverflow) {
+        if (this.styleManager.computed.overflow.doesAllowScroll) {
           this.scrollRect.x = Math.min(this.scrollRect.x, this.scrollRect.w - this.elementRect.w);
           this.scrollRect.y = Math.min(this.scrollRect.y, this.scrollRect.h - this.elementRect.h);
         } else {
@@ -763,6 +763,16 @@ export class TermElement extends TermNode<TermElement> {
 
       if (this.styleManager.computed.overflow.doesHideOverflow || !relativeClipRect) {
         relativeClipRect = {...this.elementClipRect!};
+
+        if (this.styleManager.computed.borderLeftCharacter) {
+          relativeClipRect.x += 1;
+          relativeClipRect.w -= 1;
+        }
+
+        if (this.styleManager.computed.borderTopCharacter) {
+          relativeClipRect.y += 1;
+          relativeClipRect.h -= 1;
+        }
 
         if (this.styleManager.computed.borderRightCharacter)
           relativeClipRect.w -= 1;
@@ -974,6 +984,9 @@ export class TermElement extends TermNode<TermElement> {
       prefix += style.fainted.in;
     else if (this.styleManager.computed.fontWeight === StyleValues.FontWeight.Bold)
       prefix += style.emboldened.in;
+
+    if (this.styleManager.computed.fontStyle === StyleValues.FontStyle.Italic)
+      prefix += style.italic.in;
 
     if (this.styleManager.computed.textDecoration === StyleValues.TextDecoration.Underline)
       prefix += style.underlined.in;

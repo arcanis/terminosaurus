@@ -107,6 +107,7 @@ export const styleParsers = {
   paddingTop: tuple([length.rel, length, inherit]),
   paddingBottom: tuple([length.rel, length, inherit]),
 
+  fontStyle: tuple([pick(StyleValues.FontStyle), inherit]),
   fontWeight: tuple([pick(StyleValues.FontWeight), inherit]),
   textAlign: tuple([pick(StyleValues.TextAlign), inherit]),
   textDecoration: tuple([pick(StyleValues.TextDecoration), null, inherit]),
@@ -349,6 +350,13 @@ export const physicalProperties = {
     parsers: styleParsers.paddingBottom,
     triggers: [dirtyLayout, forwardToYoga(`setPadding`, Yoga.EDGE_BOTTOM, forwardToYoga.value)],
     initial: StyleValues.Length.Zero,
+  },
+
+  fontStyle: {
+    parsers: styleParsers.fontStyle,
+    triggers: [dirtyRendering],
+    initial: StyleValues.Inherit,
+    default: StyleValues.FontStyle.Normal,
   },
 
   fontWeight: {

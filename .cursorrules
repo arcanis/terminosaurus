@@ -1,0 +1,13 @@
+This repository contains a TypeScript library for building terminal applications, either using React or directly through its TypeScript APIs.
+
+Not all HTML elements are supported. All elements are prefixed with `term:` to avoid conflicts with the HTML namespace.
+
+Inline elements are not supported - only block elements are supported (no `term:span`).
+
+Layout can be constructed using flexbox properties.
+
+Style properties are inlined - ie `<term:div width="100%" height="100%">` rather than `<term:div style={{ width: '100%', height: '100%' }}>`.
+
+Referencing the props of a React component can be done using, for example, `JSX.IntrinsicElements['term:div']`.
+
+The documentation is available in the `docs` folder.

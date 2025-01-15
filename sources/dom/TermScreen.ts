@@ -1,5 +1,5 @@
 import {Info, Key, Mouse, parseTerminalInputs, Production} from 'term-strings/parse';
-import {cursor, feature, request, screen, style}           from 'term-strings';
+import {ansiPattern, cursor, feature, request, screen, style}           from 'term-strings';
 import Observable                                          from 'zen-observable';
 
 import {TermElement}                                       from '#sources/dom/TermElement';
@@ -38,6 +38,7 @@ export type ScreenStreams = {
 };
 
 export type RunOptions = Partial<ScreenStreams> & {
+  debugPaintRects?: boolean;
   trackOutputSize?: boolean;
   throttleMouseMoveEvents?: number;
 };
@@ -90,6 +91,9 @@ export class TermScreen {
   }
 
   async run(opts: RunOptions, fn: () => void | undefined) {
+    if (opts.debugPaintRects)
+      this.rootNode.debugPaintRects = true;
+
     this.attachScreen(opts);
 
     return new Promise<number>(resolve => {
@@ -367,6 +371,7 @@ export class TermScreen {
 
     while (dirtyRects.length > 0) {
       const dirtyRect = dirtyRects.shift()!;
+      console.log(dirtyRect);
 
       for (const element of this.rootNode.renderList) {
         if (!element.elementClipRect)
@@ -385,8 +390,10 @@ export class TermScreen {
 
           let line = String(element.renderElement(relativeX, relativeY, intersection.w));
 
-          if (this.rootNode.debugPaintRects)
+          if (this.rootNode.debugPaintRects) {
+            line = line.replace(new RegExp(ansiPattern(), `g`), ``);
             line = style.color.back(debugColor) + line + style.clear;
+          }
 
           buffer += cursor.moveTo({x: intersection.x, y: intersection.y + y});
           buffer += line;
@@ -421,6 +428,7 @@ export class TermScreen {
   };
 
   handleExit = () => {
+
     this.detachScreen();
   };
 

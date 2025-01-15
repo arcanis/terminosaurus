@@ -27,6 +27,9 @@ export const navigation = [{
   }, {
     title: `Simple form`,
     href: `/docs/examples/simple-form`,
+  }, {
+    title: `Ollama chat`,
+    href: `/docs/examples/ollama`,
   }],
 }, {
   title: `Entry points`,

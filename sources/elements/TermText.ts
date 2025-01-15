@@ -319,7 +319,14 @@ export class TermText extends TermElement {
   }
 
   setText(content: string) {
+    const updateCaret = this.caretIndex !== null && content.length < this.caretIndex;
     this.textBuffer.setValue(content);
+
+    if (updateCaret) {
+      this.caretIndex = content.length;
+      this.caret = this.textLayout.getPositionForCharacterIndex(this.caretIndex);
+      this.caretMaxColumn = this.caret.x;
+    }
   }
 
   getPreferredSize(min: Point, max: Point) {

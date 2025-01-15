@@ -10,6 +10,7 @@ import {EventOf, EventSlot}  from '#sources/misc/EventSource';
 import {AllPropertiesInputs} from '#sources/style/styleProperties';
 import { TermPty } from '../elements/TermPty';
 import { TermButton, TermText } from '..';
+import { TermForm } from '../elements/TermForm';
 
 type HasChildren = {children?: React.ReactNode};
 
@@ -40,6 +41,7 @@ declare global {
       'term:canvas': AllReactPropsFor<TermCanvas> & AllReactEventsFor<TermCanvas>;
       'term:div': AllReactPropsFor<TermElement> & AllReactEventsFor<TermElement> & HasChildren;
       'term:editor': AllReactPropsFor<TermEditor> & AllReactEventsFor<TermEditor>;
+      'term:form': AllReactPropsFor<TermForm> & AllReactEventsFor<TermForm> & HasChildren;
       'term:input': AllReactPropsFor<TermInput> & AllReactEventsFor<TermInput>;
       'term:text': AllReactPropsFor<TermText> & AllReactEventsFor<TermText> & HasChildren;
       'term:pty': AllReactPropsFor<TermPty> & AllReactEventsFor<TermPty>;
@@ -52,6 +54,7 @@ export const ElementMap = new Map([
   [`term:canvas`, TermCanvas],
   [`term:div`, TermElement],
   [`term:editor`, TermEditor],
+  [`term:form`, TermForm],
   [`term:input`, TermInput],
   [`term:text`, TermText],
   [`term:pty`, TermPty],

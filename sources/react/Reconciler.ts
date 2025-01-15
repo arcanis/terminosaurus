@@ -85,7 +85,7 @@ function triageProps(hostContext: HostContext, props: Record<string, any>, oldPr
     if (k === `children`) {
       triagedProps.text = typeof v === `string` ? v : null;
     } else if (isPropertyName(k)) {
-      triagedProps.styles.set(k, parsePropertyValue(k, v));
+      triagedProps.styles.set(k, v !== undefined ? parsePropertyValue(k, v) : undefined);
     } else if (k.match(eventRegExp) && v) {
       triagedProps.addedEvents.set(k, wrapWithBatch(v, hostContext));
     } else {
