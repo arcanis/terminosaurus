@@ -19,6 +19,9 @@ export const navigation = [{
 }, {
   title: `Examples`,
   links: [{
+    title: `Anthropic chat`,
+    href: `/docs/examples/anthropic`,
+  }, {
     title: `Bouncing ball`,
     href: `/docs/examples/bouncing-ball`,
   }, {
@@ -27,9 +30,6 @@ export const navigation = [{
   }, {
     title: `Simple form`,
     href: `/docs/examples/simple-form`,
-  }, {
-    title: `Ollama chat`,
-    href: `/docs/examples/ollama`,
   }],
 }, {
   title: `Entry points`,
