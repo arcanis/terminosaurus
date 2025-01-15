@@ -371,7 +371,6 @@ export class TermScreen {
 
     while (dirtyRects.length > 0) {
       const dirtyRect = dirtyRects.shift()!;
-      console.log(dirtyRect);
 
       for (const element of this.rootNode.renderList) {
         if (!element.elementClipRect)

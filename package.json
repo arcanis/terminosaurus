@@ -1,6 +1,6 @@
 {
   "name": "terminosaurus",
-  "version": "3.0.0-rc.3",
+  "version": "3.0.0-rc.4",
   "packageManager": "yarn@4.1.0+sha224.bc24d7f5afc738464f3d4e95f4e6e7829a35cee54a0fd527ea5baa83",
   "workspaces": [
     "website"
