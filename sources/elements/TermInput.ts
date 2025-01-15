@@ -29,6 +29,14 @@ export class TermInput extends TermText {
     this.styleManager.addRuleset(ruleset);
   }
 
+  resetSecret() {
+    this.setSecret(false);
+  }
+
+  setSecret(secret: boolean) {
+    this.secret = secret;
+  }
+
   get multiline() {
     return this.enterIsNewline;
   }

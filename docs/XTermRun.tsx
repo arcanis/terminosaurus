@@ -7,6 +7,7 @@ import React, {useEffect, useRef} from 'react';
 import ollama from 'ollama/browser';
 import * as reactRedux from 'react-redux';
 import * as reduxToolkit from '@reduxjs/toolkit';
+import * as anthropic from '@anthropic-ai/sdk';
 import {PassThrough} from 'stream';
 
 import grammar from '#data/languages/TypeScript.tmLanguage.json';
@@ -61,12 +62,13 @@ export function XTermRun({className = ``, code, rows}: {className?: string, code
         };
 
         const vendors = {
+            [`@anthropic-ai/sdk`]: anthropic,
+            [`@reduxjs/toolkit`]: reduxToolkit,
+            [`ollama`]: {default: ollama},
+            [`react-redux`]: reactRedux,
             [`react`]: React,
             [`terminosaurus`]: patchedTerminosaurus,
             [`terminosaurus/react`]: patchedTerminosaurusReact,
-            [`ollama`]: {default: ollama},
-            [`react-redux`]: reactRedux,
-            [`@reduxjs/toolkit`]: reduxToolkit,
             [`#data/languages/TypeScript.tmLanguage.json`]: {default: grammar},
             [`#data/themes/WinterIsComing.json`]: {default: theme},
         };

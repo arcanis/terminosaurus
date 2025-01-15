@@ -11,3 +11,5 @@ Style properties are inlined - ie `<term:div width="100%" height="100%">` rather
 Referencing the props of a React component can be done using, for example, `JSX.IntrinsicElements['term:div']`.
 
 The documentation is available in the `docs` folder.
+
+This repository uses Yarn. Never use npm commands.

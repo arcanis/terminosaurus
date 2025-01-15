@@ -173,6 +173,8 @@ export class TermElement extends TermNode<TermElement> {
     contentCoordinates: Point;
   });
 
+  public alwaysScrollToBottom = false;
+
   constructor({textLayout = null}: {textLayout?: TextLayout | null} = {}) {
     super();
 
@@ -299,6 +301,14 @@ export class TermElement extends TermNode<TermElement> {
   }
 
   cleanup() {
+  }
+
+  resetAlwaysScrollToBottom() {
+    this.setAlwaysScrollToBottom(false);
+  }
+
+  setAlwaysScrollToBottom(value: boolean) {
+    this.alwaysScrollToBottom = value;
   }
 
   resetDecorated() {
@@ -658,14 +668,24 @@ export class TermElement extends TermNode<TermElement> {
 
         const prevScrollWidth = this.scrollRect.w;
         const prevScrollHeight = this.scrollRect.h;
+        const isScrolledToBottom = this.scrollRect.y >= this.scrollRect.h - this.elementRect.h;
 
-        this.scrollRect.w = Math.max(this.elementRect.w, this.getInternalContentWidth(), ...this.childNodes.map(child => {
-          return child.elementRect.x + child.elementRect.w;
+        const edgeLeft = this.yoga.getComputedBorder(Yoga.EDGE_LEFT);
+        const edgeTop = this.yoga.getComputedBorder(Yoga.EDGE_TOP);
+
+        const minScrollW = this.elementRect.w - edgeLeft - this.yoga.getComputedBorder(Yoga.EDGE_RIGHT);
+        const minScrollH = this.elementRect.h - edgeTop - this.yoga.getComputedBorder(Yoga.EDGE_BOTTOM);
+
+        this.scrollRect.w = Math.max(minScrollW, this.getInternalContentWidth(), ...this.childNodes.map(child => {
+          return child.elementRect.x + child.elementRect.w - edgeLeft;
         }));
 
-        this.scrollRect.h = Math.max(this.elementRect.h, this.getInternalContentHeight(), ...this.childNodes.map(child => {
-          return child.elementRect.y + child.elementRect.h;
+        this.scrollRect.h = Math.max(minScrollH, this.getInternalContentHeight(), ...this.childNodes.map(child => {
+          return child.elementRect.y + child.elementRect.h - edgeTop;
         }));
+
+        if (this.alwaysScrollToBottom && isScrolledToBottom && this.scrollRect.h > prevScrollHeight)
+          this.scrollRect.y = Infinity;
 
         this.contentRect.x = this.yoga.getComputedBorder(Yoga.EDGE_LEFT) + this.yoga.getComputedPadding(Yoga.EDGE_LEFT);
         this.contentRect.y = this.yoga.getComputedBorder(Yoga.EDGE_TOP) + this.yoga.getComputedPadding(Yoga.EDGE_TOP);
@@ -700,8 +720,11 @@ export class TermElement extends TermNode<TermElement> {
         const prevScrollY = this.scrollRect.y;
 
         if (this.styleManager.computed.overflow.doesAllowScroll) {
-          this.scrollRect.x = Math.min(this.scrollRect.x, this.scrollRect.w - this.elementRect.w);
-          this.scrollRect.y = Math.min(this.scrollRect.y, this.scrollRect.h - this.elementRect.h);
+          const minScrollX = this.elementRect.w - this.yoga.getComputedBorder(Yoga.EDGE_LEFT) - this.yoga.getComputedBorder(Yoga.EDGE_RIGHT);
+          const minScrollY = this.elementRect.h - this.yoga.getComputedBorder(Yoga.EDGE_TOP) - this.yoga.getComputedBorder(Yoga.EDGE_BOTTOM);
+
+          this.scrollRect.x = Math.max(0, Math.min(this.scrollRect.x, this.scrollRect.w - minScrollX));
+          this.scrollRect.y = Math.max(0, Math.min(this.scrollRect.y, this.scrollRect.h - minScrollY));
         } else {
           this.scrollRect.x = 0;
           this.scrollRect.y = 0;
@@ -1027,8 +1050,10 @@ export class TermElement extends TermNode<TermElement> {
   set scrollLeft(scrollLeft) {
     this.triggerUpdates();
 
+    const minScrollX = this.elementRect.w - this.yoga.getComputedBorder(Yoga.EDGE_LEFT) - this.yoga.getComputedBorder(Yoga.EDGE_RIGHT);
+
     const previousScrollLeft = this.scrollRect.x;
-    const newScrollLeft = Math.max(0, Math.min(scrollLeft, this.scrollRect.w - this.elementRect.w));
+    const newScrollLeft = Math.max(0, Math.min(scrollLeft, this.scrollRect.w - minScrollX));
 
     if (previousScrollLeft !== newScrollLeft) {
       this.scrollRect.x = newScrollLeft;
@@ -1049,8 +1074,10 @@ export class TermElement extends TermNode<TermElement> {
   set scrollTop(scrollTop) {
     this.triggerUpdates();
 
+    const minScrollY = this.elementRect.h - this.yoga.getComputedBorder(Yoga.EDGE_TOP) - this.yoga.getComputedBorder(Yoga.EDGE_BOTTOM);
+
     const previousScrollTop = this.scrollRect.y;
-    const newScrollTop = Math.max(0, Math.min(scrollTop, this.scrollRect.h - this.elementRect.h));
+    const newScrollTop = Math.max(0, Math.min(scrollTop, this.scrollRect.h - minScrollY));
 
     if (previousScrollTop !== newScrollTop) {
       this.scrollRect.y = newScrollTop;

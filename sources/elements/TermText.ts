@@ -18,6 +18,7 @@ export class TermText extends TermElement {
 
   public enterIsNewline = false;
   public readOnly = false;
+  public secret = false;
 
   public caretIndex: number | null = 0;
   public caretMaxColumn: number | null = 0;
@@ -364,8 +365,12 @@ export class TermText extends TermElement {
     const lineLength = Math.max(0, Math.min(l + x - fullLineStart, l, fullLineLength - lineStart));
     const suffixLength = Math.max(0, l - prefixLength - lineLength);
 
+    const unstyledText = this.secret
+      ? `*`.repeat(lineLength)
+      : this.textLayout.getLineSlice(y, lineStart, lineStart + lineLength);
+
     const prefix = this.renderBackground(prefixLength);
-    const text = this.renderText(this.textLayout.getLineSlice(y, lineStart, lineStart + lineLength));
+    const text = this.renderText(unstyledText);
 
     const suffix = this.renderBackground(suffixLength);
 
@@ -390,18 +395,10 @@ export class TermText extends TermElement {
 
       this.setDirtyLayoutFlag();
       this.queueDirtyRect();
-    } else if (oldEnd.y === newEnd.y) {
-      const dirtyRect = {...this.contentWorldRect};
-
-      //dirtyRect.x += start.x - this.scrollRect.x; // We can't apply this optimization because of syntax highlightning and non-left-aligned alignments, where adding a character might change the way the *previous ones* are displayed
-      dirtyRect.y += start.y - this.scrollRect.y;
-
-      dirtyRect.h = 1;
-
-      this.queueDirtyRect(dirtyRect);
     } else {
       const dirtyRect = {...this.contentWorldRect};
 
+      //dirtyRect.x += start.x - this.scrollRect.x; // We can't apply this optimization because of syntax highlightning and non-left-aligned alignments, where adding a character might change the way the *previous ones* are displayed
       dirtyRect.y += start.y - this.scrollRect.y;
 
       dirtyRect.h = Math.max(oldEnd.y, newEnd.y) - start.y + 1;

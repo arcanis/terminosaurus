@@ -38,6 +38,7 @@
     "zen-observable": "^0.9.0"
   },
   "devDependencies": {
+    "@anthropic-ai/sdk": "^0.18.0",
     "@reduxjs/toolkit": "^2.5.0",
     "@types/node": "^20.11.24",
     "@types/react": "^18.0.26",
