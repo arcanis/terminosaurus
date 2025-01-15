@@ -90,8 +90,6 @@ export const sendMessage = createAsyncThunk(
     const discussion = state.anthropic.discussions.find(d => d.id === discussionId)!;
     const anthropic = getAnthropicClient(state.anthropic.apiKey);
 
-    dispatch(anthropicSlice.actions.startStreamingResponse({discussionId}));
-
     const stream = await anthropic.messages.create({
       model: discussion.model,
       system: PROMPT,
@@ -110,8 +108,15 @@ export const sendMessage = createAsyncThunk(
       content = '';
     }, 100);
 
+    let isFirst = true;
+
     for await (const chunk of stream) {
       if (chunk.type === 'content_block_delta' && chunk.delta.text) {
+        if (isFirst) {
+          dispatch(anthropicSlice.actions.startStreamingResponse({discussionId}));
+          isFirst = false;
+        }
+
         content += chunk.delta.text;
         throttledDispatch();
       }
@@ -119,11 +124,11 @@ export const sendMessage = createAsyncThunk(
 
     throttledDispatch(true);
 
-    // if (discussion.title === null) {
-    //   dispatch(generateTitle({
-    //     discussionId,
-    //   }));
-    // }
+    if (discussion.title === null) {
+      dispatch(generateTitle({
+        discussionId,
+      }));
+    }
   }
 );
 
@@ -194,8 +199,11 @@ const anthropicSlice = createSlice({
       state.apiKey = action.payload;
       state.showKeyModal = false;
     },
-    toggleKeyModal: (state) => {
-      state.showKeyModal = !state.showKeyModal;
+    openKeyModal: (state) => {
+      state.showKeyModal = true;
+    },
+    closeKeyModal: (state) => {
+      state.showKeyModal = false;
     },
   },
   extraReducers: (builder) => {
@@ -305,7 +313,7 @@ function KeyModal({ onClose }: { onClose: () => void }) {
           onClick={() => setRememberKey(!rememberKey)}
           paddingRight={1}
         >
-          <term:text>[{rememberKey ? 'X' : ' '}] Remember this key</term:text>
+          <term:text>[{rememberKey ? 'X' : ' '}] Remember this key into localStorage</term:text>
         </term:div>
       </term:div>
 
@@ -374,7 +382,7 @@ function AnthropicApp() {
   return (
     <term:div flexDirection="column" width="100%" height="100%" onClick={e => e.target.rootNode.queueDirtyRect()}>
       {!apiKey ? (
-        <term:div height={1} backgroundColor="yellow" onClick={() => dispatch(anthropicSlice.actions.toggleKeyModal())}>
+        <term:div height={1} backgroundColor="yellow" onClick={() => dispatch(anthropicSlice.actions.openKeyModal())}>
           <term:text color="black" paddingLeft={1} paddingRight={1}>
             Click here to set your Anthropic API key and start chatting!
           </term:text>
@@ -384,7 +392,7 @@ function AnthropicApp() {
           <term:text flex={1} color="white" paddingLeft={1}>
             Connected as Anthropic User
           </term:text>
-          <term:div marginLeft={1} marginRight={1} paddingLeft={1} paddingRight={1} backgroundColor="darkGray" marginLeft="auto" onClick={handleLogout}>
+          <term:div marginLeft={1} marginRight={1} paddingLeft={1} paddingRight={1} backgroundColor="darkGray" onClick={handleLogout}>
             Logout
           </term:div>
         </term:div>
@@ -460,7 +468,7 @@ function AnthropicApp() {
       </term:div>
 
       {showKeyModal && (
-        <KeyModal onClose={() => dispatch(anthropicSlice.actions.toggleKeyModal())} />
+        <KeyModal onClose={() => dispatch(anthropicSlice.actions.closeKeyModal())} />
       )}
     </term:div>
   );
