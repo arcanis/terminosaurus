@@ -1,6 +1,6 @@
 {
   "name": "terminosaurus",
-  "version": "3.0.0-rc.4",
+  "version": "3.0.0-rc.5",
   "packageManager": "yarn@4.1.0+sha224.bc24d7f5afc738464f3d4e95f4e6e7829a35cee54a0fd527ea5baa83",
   "workspaces": [
     "website"
@@ -31,7 +31,7 @@
     "node-pty": "1.1.0-beta27",
     "react-reconciler": "^0.29.0",
     "react-refresh": "^0.14.0",
-    "term-strings": "^0.16.0",
+    "term-strings": "^0.16.2",
     "vscode-oniguruma": "^1.7.0",
     "vscode-textmate": "^8.0.0",
     "yogini": "^0.4.2",

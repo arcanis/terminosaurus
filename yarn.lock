@@ -3029,9 +3029,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"term-strings@npm:^0.16.0":
-  version: 0.16.0
-  resolution: "term-strings@npm:0.16.0"
+"term-strings@npm:^0.16.2":
+  version: 0.16.2
+  resolution: "term-strings@npm:0.16.2"
   dependencies:
     "@types/zen-observable": "npm:^0.8.3"
     color-diff: "npm:^1.2.0"
@@ -3039,7 +3039,7 @@ __metadata:
   bin:
     term-strings: ./build/bin/term-strings.js
     term-strings-seqdbg: ./build/bin/term-strings-seqdbg.js
-  checksum: 10c0/91e4fbe71e3d988a7011673924b94de7c8f3724d4ffbc8ec0a6d97456ddfb08f49097304251066960b1022b41fef9fa27c049c69bf01aa85781b3c85b0275d0d
+  checksum: 10c0/2f31357509681915cce44e54a4c0a3175389f0b01eb07a2511c140cbf43a65cf089e23e924ad7362d035f0f5b7e13e36d7028909d2d5862d226b64e2c308baf1
   languageName: node
   linkType: hard
 
@@ -3068,7 +3068,7 @@ __metadata:
     react-redux: "npm:^9.2.0"
     react-refresh: "npm:^0.14.0"
     tailwindcss: "npm:^3.4.1"
-    term-strings: "npm:^0.16.0"
+    term-strings: "npm:^0.16.2"
     tsx: "npm:^4.7.1"
     typescript: "npm:^5.3.3"
     vitest: "npm:^1.3.1"

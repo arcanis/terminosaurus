@@ -47,7 +47,7 @@ const RAW_RUNTIME_STATE =
           ["react-redux", "virtual:94d85169d29260b76ffb0219eec7ea8a47862ee24c417cc67801a50351aabc75e3f1a8e4fb27a447fea9891b861552e01dce89d0e4e10725cf4ae6f3f194f720#npm:9.2.0"],\
           ["react-refresh", "npm:0.14.0"],\
           ["tailwindcss", "npm:3.4.1"],\
-          ["term-strings", "npm:0.16.0"],\
+          ["term-strings", "npm:0.16.2"],\
           ["tsx", "npm:4.7.1"],\
           ["typescript", "patch:typescript@npm%3A5.3.3#optional!builtin<compat/typescript>::version=5.3.3&hash=e012d7"],\
           ["vitest", "virtual:94d85169d29260b76ffb0219eec7ea8a47862ee24c417cc67801a50351aabc75e3f1a8e4fb27a447fea9891b861552e01dce89d0e4e10725cf4ae6f3f194f720#npm:1.3.1"],\
@@ -3446,10 +3446,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["term-strings", [\
-      ["npm:0.16.0", {\
-        "packageLocation": "../.yarn/berry/cache/term-strings-npm-0.16.0-7bf2ec1e2f-10c0.zip/node_modules/term-strings/",\
+      ["npm:0.16.2", {\
+        "packageLocation": "../.yarn/berry/cache/term-strings-npm-0.16.2-be1dbb7ca7-10c0.zip/node_modules/term-strings/",\
         "packageDependencies": [\
-          ["term-strings", "npm:0.16.0"],\
+          ["term-strings", "npm:0.16.2"],\
           ["@types/zen-observable", "npm:0.8.3"],\
           ["color-diff", "npm:1.2.0"],\
           ["zen-observable", "npm:0.8.15"]\
@@ -3483,7 +3483,7 @@ const RAW_RUNTIME_STATE =
           ["react-redux", "virtual:94d85169d29260b76ffb0219eec7ea8a47862ee24c417cc67801a50351aabc75e3f1a8e4fb27a447fea9891b861552e01dce89d0e4e10725cf4ae6f3f194f720#npm:9.2.0"],\
           ["react-refresh", "npm:0.14.0"],\
           ["tailwindcss", "npm:3.4.1"],\
-          ["term-strings", "npm:0.16.0"],\
+          ["term-strings", "npm:0.16.2"],\
           ["tsx", "npm:4.7.1"],\
           ["typescript", "patch:typescript@npm%3A5.3.3#optional!builtin<compat/typescript>::version=5.3.3&hash=e012d7"],\
           ["vitest", "virtual:94d85169d29260b76ffb0219eec7ea8a47862ee24c417cc67801a50351aabc75e3f1a8e4fb27a447fea9891b861552e01dce89d0e4e10725cf4ae6f3f194f720#npm:1.3.1"],\

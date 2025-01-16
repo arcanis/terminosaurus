@@ -1009,7 +1009,7 @@ export class TermElement extends TermNode<TermElement> {
       prefix += style.emboldened.in;
 
     if (this.styleManager.computed.fontStyle === StyleValues.FontStyle.Italic)
-      prefix += style.italic.in;
+      prefix += style.italicized.in;
 
     if (this.styleManager.computed.textDecoration === StyleValues.TextDecoration.Underline)
       prefix += style.underlined.in;
