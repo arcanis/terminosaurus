@@ -135,7 +135,7 @@ function withTracker<T extends object>(obj: T) {
   })) as T;
 }
 
-export const HostConfigImplementation: Partial<TermHostConfig> = {
+const BaseHostConfigImplementation: Omit<TermHostConfig, `beforeActiveInstanceBlur` | `afterActiveInstanceBlur` | `prepareScopeUpdate` | `getInstanceFromScope`> = {
   supportsMutation: true,
   supportsPersistence: false,
 
@@ -183,6 +183,10 @@ export const HostConfigImplementation: Partial<TermHostConfig> = {
     return instance.termNode;
   },
 
+  getInstanceFromNode(node) {
+    return null;
+  },
+
   prepareForCommit(containerInfo) {
     return {};
   },
@@ -203,6 +207,7 @@ export const HostConfigImplementation: Partial<TermHostConfig> = {
 
   noTimeout: null,
 
+  supportsHydration: false,
   supportsMicrotasks: true,
 
   scheduleMicrotask(fn) {
@@ -273,4 +278,28 @@ export const HostConfigImplementation: Partial<TermHostConfig> = {
   },
 };
 
-export const Reconciler = createReconciler(withTracker(HostConfigImplementation as TermHostConfig));
+// React doesn't document well the functions that are required to be implemented, so
+// the types are slightly off. To workaround that we implement everything that's well
+// typed in BaseHostConfigImplementation, and add here whatever is missing.
+export const HostConfigImplementation = {
+  ...BaseHostConfigImplementation,
+
+  resolveUpdatePriority() {
+    return DefaultEventPriority;
+  },
+
+  getCurrentUpdatePriority() {
+    return DefaultEventPriority;
+  },
+
+  setCurrentUpdatePriority() {
+  },
+
+  maySuspendCommit() {
+    return false;
+  },
+
+  supportsMutation: true,
+} as any as TermHostConfig;
+
+export const Reconciler = createReconciler(withTracker(HostConfigImplementation));

@@ -5,6 +5,7 @@ import {RunOptions, TermScreen}                                           from '
 import {run}                                                              from '#sources/index';
 import {Rect}                                                             from '#sources/misc/Rect';
 import {ReactElement}                                                     from '#sources/react/Tree';
+import { ConcurrentRoot } from 'react-reconciler/constants';
 
 export *                                                                  from '#sources/index';
 
@@ -106,7 +107,7 @@ export async function render(arg1: RunOptions | React.ReactNode, arg2?: React.Re
   await run(opts, screen => {
     const onRecoverableError = () => {};
 
-    container = Reconciler.createContainer(new ReactElement(screen.rootNode), 0, null, false, null, `term-`, onRecoverableError, null);
+    container = Reconciler.createContainer(new ReactElement(screen.rootNode), ConcurrentRoot, null, false, null, `term-`, onRecoverableError, null);
     Reconciler.updateContainer(wrap(element, {screen}), container, null, null);
   });
 

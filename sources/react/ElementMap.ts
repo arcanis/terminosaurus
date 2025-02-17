@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import React, {LegacyRef}    from 'react';
+import React                 from 'react';
 
 import {TermElement}         from '#sources/dom/TermElement';
 import {TermCanvas}          from '#sources/elements/TermCanvas';
@@ -34,7 +34,7 @@ type AllReactPropsFor<T extends object> = {
   [K in Extract<keyof T, string> as K extends CheckIsProp<T, K> ? K : never]?: T[K];
 };
 
-declare global {
+declare module 'react' {
   namespace JSX {
     interface IntrinsicElements {
       'term:button': AllReactPropsFor<TermButton> & AllReactEventsFor<TermButton> & HasChildren;
