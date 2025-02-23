@@ -4,8 +4,8 @@ import * as pty                from '../deps/node-pty';
 import {TermElement}           from '../dom/TermElement';
 import {makeRuleset}           from '../style/tools/makeRuleset';
 
-const emptyArray: number[] = [];
-const zeroArray: number[] = [0];
+const emptyArray: Array<number> = [];
+const zeroArray: Array<number> = [0];
 
 const ruleset = makeRuleset({
   [`*`]: {
@@ -135,13 +135,13 @@ export class TermPty extends TermElement {
       if (!cell)
         break;
 
-      const isEmptyCell = cell.getChars() === '';
+      const isEmptyCell = cell.getChars() === ``;
 
       const sgrSeq = this._diffStyle(cell, lastCell);
       const styleChanged = isEmptyCell ? !equalBg(lastCell, cell) : sgrSeq.length > 0;
 
       if (styleChanged)
-        out += `\x1b[${sgrSeq.join(';')}m`;
+        out += `\x1b[${sgrSeq.join(`;`)}m`;
 
       out += cell.getChars() || ` `;
       size += 1;
@@ -149,10 +149,10 @@ export class TermPty extends TermElement {
       lastCell = cell;
     }
 
-    return out + `\x1b[0m` + this.renderBackground(l - size);
+    return `${out}\x1b[0m${this.renderBackground(l - size)}`;
   }
 
-  private _diffStyle(cell: IBufferCell, oldCell: IBufferCell): number[] {
+  private _diffStyle(cell: IBufferCell, oldCell: IBufferCell): Array<number> {
     const fgChanged = !equalFg(cell, oldCell);
     const bgChanged = !equalBg(cell, oldCell);
     const flagsChanged = !equalFlags(cell, oldCell);
@@ -160,10 +160,10 @@ export class TermPty extends TermElement {
     if (!fgChanged && !bgChanged && !flagsChanged)
       return emptyArray;
 
-    if (cell.isAttributeDefault() && !oldCell.isAttributeDefault()) 
+    if (cell.isAttributeDefault() && !oldCell.isAttributeDefault())
       return zeroArray;
 
-    const sgrSeq: number[] = [];
+    const sgrSeq: Array<number> = [];
 
     if (fgChanged) {
       const color = cell.getFgColor();
@@ -228,11 +228,11 @@ export class TermPty extends TermElement {
     return sgrSeq;
   }
 
-  spawn(fileName: string, args: string[] = []) {
+  spawn(fileName: string, args: Array<string> = []) {
     this.pty?.kill();
 
     this.pty = pty.spawn(fileName, args, {
-      name: 'xterm-color',
+      name: `xterm-color`,
       cols: this.term.cols,
       rows: this.term.rows,
       cwd: process.cwd(),

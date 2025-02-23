@@ -5,13 +5,14 @@ import path                       from 'path';
 import React                      from 'react';
 import {screen}                   from 'term-strings';
 
+import {RunOptions}               from '../sources/dom/TermScreen';
+
 import {
   PassThrough,
   ScreenStreams,
   render,
   run,
 } from 'terminosaurus/react';
-import { RunOptions } from '../sources/dom/TermScreen';
 
 runExit(class Main extends Command {
   public debugPaintRects = Option.Boolean(`--debug-paint-rects`, false);

@@ -1,7 +1,7 @@
-import {LoremIpsum}                        from 'lorem-ipsum';
-
-import {stableRandom}                      from '../sources/misc/Rand';
+import {LoremIpsum}                                             from 'lorem-ipsum';
 import {StyleValues, TermElement, TermScreen, TermText, length} from 'terminosaurus';
+
+import {stableRandom}                                           from '../sources/misc/Rand';
 
 const lorem = new LoremIpsum({
   random: stableRandom(`foo`),

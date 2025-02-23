@@ -1,8 +1,6 @@
-import '../testing';
-
 import {init, TermElement}       from '../index';
-
 import {ReactElement, ReactText} from '../react/Tree';
+import '../testing';
 
 beforeAll(async () => {
   await init();

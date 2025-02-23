@@ -1,9 +1,9 @@
-import {TermScreen} from 'terminosaurus';
-import {TermPty}    from '../sources/elements/TermPty';
-
 import fs           from 'fs';
 import path         from 'path';
 import {useState}   from 'react';
+import {TermScreen} from 'terminosaurus';
+
+import {TermPty}    from '../sources/elements/TermPty';
 
 const examples = fs.readdirSync(__dirname);
 
@@ -17,7 +17,7 @@ export function App(screen: TermScreen) {
   return (
     <term:div flexDirection={`row`} width={`100%`} height={`100%`}>
       <term:div width={20} border={`modern`}>
-        {examples.map((exampleFile) => (
+        {examples.map(exampleFile => (
           <term:button key={exampleFile} decorated={true} onClick={() => handleClick(exampleFile)}>
             {exampleFile}
           </term:button>

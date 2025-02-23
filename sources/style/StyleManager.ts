@@ -1,8 +1,10 @@
 import {TermElement}                                                                    from '../dom/TermElement';
+
 import {Ruleset, RulesetChangeEvent}                                                    from './Ruleset';
 import {StyleValues}                                                                    from './StyleValues';
 import {PropertyName, isPhysicalPropertyName, physicalProperties, PhysicalPropertyName} from './styleProperties';
 import {getSpecificity}                                                                 from './tools/getSpecificity';
+
 import {
   defaultComputedStyles,
   defaultInheritedStyles,

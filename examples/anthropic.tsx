@@ -1,7 +1,7 @@
-import {useEffect, useState} from 'react';
-import {Provider, useDispatch, useSelector} from 'react-redux';
-import { createSlice, createAsyncThunk, PayloadAction, configureStore } from '@reduxjs/toolkit';
-import Anthropic from '@anthropic-ai/sdk';
+import Anthropic                                                      from '@anthropic-ai/sdk';
+import {createSlice, createAsyncThunk, PayloadAction, configureStore} from '@reduxjs/toolkit';
+import {Provider, useDispatch, useSelector}                           from 'react-redux';
+import {useEffect, useState}                                          from 'react';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -11,12 +11,12 @@ interface Message {
 interface Discussion {
   id: string;
   title: string | null;
-  messages: Message[];
+  messages: Array<Message>;
   model: string;
 }
 
 export interface AnthropicState {
-  discussions: Discussion[];
+  discussions: Array<Discussion>;
   currentDiscussionId: string;
   isProcessing: boolean;
   error: string | null;
@@ -32,14 +32,14 @@ If you need to give me a list (and only if you need to, please don't turn everyt
 Please try to answer in less than 200 words.
 `.trimStart();
 
-const STORAGE_KEY = 'anthropic_api_key';
-const savedApiKey = typeof localStorage !== 'undefined' ? localStorage.getItem(STORAGE_KEY) : null;
+const STORAGE_KEY = `anthropic_api_key`;
+const savedApiKey = typeof localStorage !== `undefined` ? localStorage.getItem(STORAGE_KEY) : null;
 
 const initialDiscussionId = crypto.randomUUID();
 
-const AVAILABLE_MODELS = ['claude-3-opus-20240229', 'claude-3-sonnet-20240229', 'claude-3-haiku-20240307'] as const;
+const AVAILABLE_MODELS = [`claude-3-opus-20240229`, `claude-3-sonnet-20240229`, `claude-3-haiku-20240307`] as const;
 type ModelVersion = typeof AVAILABLE_MODELS[number];
-const DEFAULT_MODEL = 'claude-3-sonnet-20240229';
+const DEFAULT_MODEL = `claude-3-sonnet-20240229`;
 
 const initialState: AnthropicState = {
   discussions: [{id: initialDiscussionId, title: null, messages: [], model: DEFAULT_MODEL}],
@@ -81,11 +81,11 @@ function getAnthropicClient(apiKey: string) {
 }
 
 export const sendMessage = createAsyncThunk(
-  'anthropic/sendMessage',
-  async ({ discussionId }: { content: string, discussionId: string }, { getState, dispatch }) => {
+  `anthropic/sendMessage`,
+  async ({discussionId}: { content: string, discussionId: string }, {getState, dispatch}) => {
     const state = getState() as { anthropic: AnthropicState };
     if (!state.anthropic.apiKey)
-      throw new Error('API key not set');
+      throw new Error(`API key not set`);
 
     const discussion = state.anthropic.discussions.find(d => d.id === discussionId)!;
     const anthropic = getAnthropicClient(state.anthropic.apiKey);
@@ -101,17 +101,17 @@ export const sendMessage = createAsyncThunk(
       stream: true,
     });
 
-    let content = '';
+    let content = ``;
 
     const throttledDispatch = throttle(() => {
       dispatch(anthropicSlice.actions.updateStreamingResponse({discussionId, content}));
-      content = '';
+      content = ``;
     }, 100);
 
     let isFirst = true;
 
     for await (const chunk of stream) {
-      if (chunk.type === 'content_block_delta' && chunk.delta.text) {
+      if (chunk.type === `content_block_delta` && chunk.delta.text) {
         if (isFirst) {
           dispatch(anthropicSlice.actions.startStreamingResponse({discussionId}));
           isFirst = false;
@@ -129,16 +129,16 @@ export const sendMessage = createAsyncThunk(
         discussionId,
       }));
     }
-  }
+  },
 );
 
 export const generateTitle = createAsyncThunk(
-  'anthropic/generateTitle',
-  async ({ discussionId }: { discussionId: string }, { getState }) => {
+  `anthropic/generateTitle`,
+  async ({discussionId}: { discussionId: string }, {getState}) => {
     const state = getState() as { anthropic: AnthropicState };
-    if (!state.anthropic.apiKey) {
-      throw new Error('API key not set');
-    }
+    if (!state.anthropic.apiKey)
+      throw new Error(`API key not set`);
+
 
     const discussion = state.anthropic.discussions.find(d => d.id === discussionId)!;
     const anthropic = getAnthropicClient(state.anthropic.apiKey);
@@ -147,26 +147,26 @@ export const generateTitle = createAsyncThunk(
     const response = discussion.messages[1].content;
 
     const titleResponse = await anthropic.messages.create({
-      model: 'claude-3-haiku-20240307',
+      model: `claude-3-haiku-20240307`,
       messages: [
-        { role: 'user', content: 'You are a title generator. Respond with just the title, no quotes or explanation.' },
-        { role: 'user', content: `Based on this conversation, generate a very short title (max 30 chars):\nUser: ${firstMessage}\nAssistant: ${response}` }
+        {role: `user`, content: `You are a title generator. Respond with just the title, no quotes or explanation.`},
+        {role: `user`, content: `Based on this conversation, generate a very short title (max 30 chars):\nUser: ${firstMessage}\nAssistant: ${response}`},
       ],
       max_tokens: 100,
     });
 
     return {
       title: titleResponse.content[0].text.slice(0, 30),
-      discussionId
+      discussionId,
     };
-  }
+  },
 );
 
 const anthropicSlice = createSlice({
-  name: 'anthropic',
+  name: `anthropic`,
   initialState,
   reducers: {
-    createNewDiscussion: (state) => {
+    createNewDiscussion: state => {
       const newId = crypto.randomUUID();
       state.discussions.push({id: newId, title: null, messages: [], model: DEFAULT_MODEL});
       state.currentDiscussionId = newId;
@@ -183,7 +183,7 @@ const anthropicSlice = createSlice({
     startStreamingResponse: (state, action: PayloadAction<{discussionId: string}>) => {
       const discussion = state.discussions.find(d => d.id === action.payload.discussionId)!;
 
-      const assistantMessage: Message = {role: 'assistant', content: ''};
+      const assistantMessage: Message = {role: `assistant`, content: ``};
       discussion.messages.push(assistantMessage);
     },
     updateStreamingResponse: (state, action: PayloadAction<{discussionId: string, content: string}>) => {
@@ -199,17 +199,17 @@ const anthropicSlice = createSlice({
       state.apiKey = action.payload;
       state.showKeyModal = false;
     },
-    openKeyModal: (state) => {
+    openKeyModal: state => {
       state.showKeyModal = true;
     },
-    closeKeyModal: (state) => {
+    closeKeyModal: state => {
       state.showKeyModal = false;
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder.addCase(sendMessage.pending, (state, action) => {
       const discussion = state.discussions.find(d => d.id === action.meta.arg.discussionId)!;
-      discussion.messages.push({role: 'user', content: action.meta.arg.content});
+      discussion.messages.push({role: `user`, content: action.meta.arg.content});
 
       state.isProcessing = true;
       state.error = null;
@@ -221,7 +221,7 @@ const anthropicSlice = createSlice({
 
     builder.addCase(sendMessage.rejected, (state, action) => {
       state.isProcessing = false;
-      state.error = action.error.message ?? 'Failed to connect to Anthropic. Make sure it is running locally.';
+      state.error = action.error.message ?? `Failed to connect to Anthropic. Make sure it is running locally.`;
     });
 
     builder.addCase(generateTitle.fulfilled, (state, action) => {
@@ -230,7 +230,7 @@ const anthropicSlice = createSlice({
     });
 
     builder.addCase(generateTitle.rejected, (state, action) => {
-      state.error = action.error.message ?? 'Failed to generate title.';
+      state.error = action.error.message ?? `Failed to generate title.`;
     });
   },
 });
@@ -248,7 +248,7 @@ const store = configureStore({
 });
 
 type RootState = ReturnType<typeof store.getState>;
-type AppDispatch = typeof store.dispatch; 
+type AppDispatch = typeof store.dispatch;
 
 function useAppSelector<T>(selector: (state: RootState) => T) {
   return useSelector(selector);
@@ -272,13 +272,13 @@ function ProgressDots() {
   return `.`.repeat(dots + 1);
 }
 
-function KeyModal({ onClose }: { onClose: () => void }) {
-  const [key, setKey] = useState('');
+function KeyModal({onClose}: { onClose: () => void }) {
+  const [key, setKey] = useState(``);
   const [rememberKey, setRememberKey] = useState(false);
   const dispatch = useAppDispatch();
 
   const handleSubmit = () => {
-    if (rememberKey && typeof localStorage !== 'undefined')
+    if (rememberKey && typeof localStorage !== `undefined`)
       localStorage.setItem(STORAGE_KEY, key);
 
     dispatch(anthropicSlice.actions.setApiKey(key));
@@ -297,7 +297,7 @@ function KeyModal({ onClose }: { onClose: () => void }) {
       <term:text color="yellow" fontWeight="bold" marginBottom={1}>Enter your Anthropic API Key</term:text>
       <term:text marginBottom={1}>Your key will only be used locally to make API calls.</term:text>
       <term:text marginBottom={1}>It will never be transmitted to any other server.</term:text>
-      
+
       <term:form onSubmit={handleSubmit} marginBottom={1}>
         <term:input
           decorated={true}
@@ -309,11 +309,11 @@ function KeyModal({ onClose }: { onClose: () => void }) {
 
       <term:div flexDirection="row" alignItems="center" marginBottom={1}>
         <term:div
-          backgroundColor={rememberKey ? 'blue' : undefined}
+          backgroundColor={rememberKey ? `blue` : undefined}
           onClick={() => setRememberKey(!rememberKey)}
           paddingRight={1}
         >
-          <term:text>[{rememberKey ? 'X' : ' '}] Remember this key into localStorage</term:text>
+          <term:text>[{rememberKey ? `X` : ` `}] Remember this key into localStorage</term:text>
         </term:div>
       </term:div>
 
@@ -335,16 +335,16 @@ const hyperlink = (text: string, url: string) => {
 };
 
 function AnthropicApp() {
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState(``);
   const dispatch = useAppDispatch();
-  
+
   const discussions = useAppSelector((state: RootState) => state.anthropic.discussions);
   const currentDiscussionId = useAppSelector((state: RootState) => state.anthropic.currentDiscussionId);
   const isProcessing = useAppSelector((state: RootState) => state.anthropic.isProcessing);
   const error = useAppSelector((state: RootState) => state.anthropic.error);
   const apiKey = useAppSelector((state: RootState) => state.anthropic.apiKey);
   const showKeyModal = useAppSelector((state: RootState) => state.anthropic.showKeyModal);
-  
+
   const currentDiscussion = discussions.find(d => d.id === currentDiscussionId)!;
 
   const handleSubmit = async () => {
@@ -353,18 +353,18 @@ function AnthropicApp() {
 
     const trimmedInput = input.trim();
 
-    if (trimmedInput.startsWith('/')) {
-      if (trimmedInput === '/new') {
+    if (trimmedInput.startsWith(`/`)) {
+      if (trimmedInput === `/new`) {
         dispatch(createNewDiscussion());
       } else {
         dispatch(setError(`Unknown command: ${trimmedInput}`));
-        setInput('');
+        setInput(``);
       }
 
       return;
     }
 
-    setInput('');
+    setInput(``);
 
     dispatch(sendMessage({
       content: trimmedInput,
@@ -373,10 +373,10 @@ function AnthropicApp() {
   };
 
   const handleLogout = () => {
-    if (typeof localStorage !== 'undefined')
+    if (typeof localStorage !== `undefined`)
       localStorage.removeItem(STORAGE_KEY);
 
-    dispatch(anthropicSlice.actions.setApiKey(''));
+    dispatch(anthropicSlice.actions.setApiKey(``));
   };
 
   return (
@@ -402,12 +402,12 @@ function AnthropicApp() {
         <term:div width={30} flexDirection="column">
           {/* Discussions list */}
           <term:div border="modern" overflow="scroll" flexDirection="column">
-            {AVAILABLE_MODELS.map((model) => (
+            {AVAILABLE_MODELS.map(model => (
               <term:div
                 key={model}
                 paddingLeft={1}
                 paddingRight={1}
-                backgroundColor={currentDiscussion.model === model ? 'blue' : undefined}
+                backgroundColor={currentDiscussion.model === model ? `blue` : undefined}
                 onClick={() => dispatch(anthropicSlice.actions.setDiscussionModel({discussionId: currentDiscussionId, model}))}
               >
                 <term:text>{model}</term:text>
@@ -416,8 +416,8 @@ function AnthropicApp() {
           </term:div>
 
           <term:div flex={1} border="modern" flexDirection="column">
-            {discussions.map((discussion) => (
-              <term:div key={discussion.id} paddingLeft={1} paddingRight={1} backgroundColor={discussion.id === currentDiscussionId ? 'blue' : undefined} onClick={() => dispatch(setCurrentDiscussion(discussion.id))}>
+            {discussions.map(discussion => (
+              <term:div key={discussion.id} paddingLeft={1} paddingRight={1} backgroundColor={discussion.id === currentDiscussionId ? `blue` : undefined} onClick={() => dispatch(setCurrentDiscussion(discussion.id))}>
                 <term:text fontStyle={discussion.title ? undefined : `italic`}>{discussion.title ?? `Untitled`}</term:text>
               </term:div>
             ))}
@@ -439,8 +439,8 @@ function AnthropicApp() {
 
             {currentDiscussion.messages.map((message, index) => (
               <term:div key={`${index}`} marginBottom={1}>
-                <term:text color={message.role === 'user' ? 'green' : 'blue'} fontWeight="bold">
-                  {message.role === 'user' ? 'You' : 'Anthropic'}:
+                <term:text color={message.role === `user` ? `green` : `blue`} fontWeight="bold">
+                  {message.role === `user` ? `You` : `Anthropic`}:
                 </term:text>
                 <term:text whiteSpace="preLine">
                   {message.content}
@@ -472,7 +472,7 @@ function AnthropicApp() {
       )}
     </term:div>
   );
-};
+}
 
 export function App() {
   return (
@@ -480,4 +480,4 @@ export function App() {
       <AnthropicApp />
     </Provider>
   );
-} 
+}

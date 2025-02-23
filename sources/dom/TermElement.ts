@@ -1,12 +1,9 @@
 import {TextLayout}                                                                         from 'mono-layout';
 import {Key, Mouse}                                                                         from 'term-strings/parse';
 import {style}                                                                              from 'term-strings';
-import { Edge, MeasureMode, type Node as YogaNode }                                                    from 'yoga-layout/load';
+import {Edge, MeasureMode, type Node as YogaNode}                                           from 'yoga-layout/load';
 
 import {createNode}                                                                         from '../deps/yoga';
-import {TermNode}                                                                           from './TermNode';
-import {ElementFlags}                                                                       from './flags';
-import {isChildOf}                                                                          from './traverse';
 import {EventOf, EventSlot}                                                                 from '../misc/EventSource';
 import {KeySequence}                                                                        from '../misc/KeySequence';
 import {Point}                                                                              from '../misc/Point';
@@ -14,6 +11,10 @@ import {compareRects, emptyRect, getBoundingRect, getIntersectingRect, Rect, sub
 import {Ruleset}                                                                            from '../style/Ruleset';
 import {StyleManager}                                                                       from '../style/StyleManager';
 import {StyleValues}                                                                        from '../style/StyleValues';
+
+import {TermNode}                                                                           from './TermNode';
+import {ElementFlags}                                                                       from './flags';
+import {isChildOf}                                                                          from './traverse';
 
 function getPreferredSize(node: TermElement, width: number, widthMeasureMode: MeasureMode, height: number, heightMeasureMode: MeasureMode) {
   const min: Point = {

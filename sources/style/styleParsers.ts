@@ -1,8 +1,9 @@
 import {style}                 from 'term-strings';
 
 import {isFinite, isUndefined} from '../misc/utils';
+
 import {StyleValues}           from './StyleValues';
-import {colorNames}           from './colorNames';
+import {colorNames}            from './colorNames';
 import {Parser, parseRawValue} from './tools/parseRawValue';
 
 export type ParserType<T> =
@@ -206,7 +207,7 @@ export function color(rawValue: keyof typeof colorNames | string) {
 
   const lcValue = rawValue.toLowerCase();
 
-  const expandedColor = Object.prototype.hasOwnProperty.call(colorNames, lcValue)
+  const expandedColor = Object.hasOwn(colorNames, lcValue)
     ? colorNames[lcValue as keyof typeof colorNames]
     : lcValue;
 

@@ -1,7 +1,6 @@
 import {type TermElement} from '../dom/TermElement';
 
 const noopDefault = () => {};
-const emptyListeners = {capture: new Set<Function>(), bubble: new Set<Function>()};
 
 export class Event<Target extends TermElement, Attributes extends Record<string, any>> {
   public bubbles: boolean;

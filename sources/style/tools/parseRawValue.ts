@@ -32,7 +32,7 @@ export function parseRawValue<T extends Parser>(rawValue: unknown, parser: T): P
       return undefined;
 
     const asCamel = camelCase(rawValue);
-    if (Object.prototype.hasOwnProperty.call(parser, asCamel)) {
+    if (Object.hasOwn(parser, asCamel)) {
       return parser[asCamel as keyof typeof parser] as any;
     } else {
       return undefined;

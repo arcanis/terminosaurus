@@ -1,4 +1,5 @@
 import {PropertyName, PropertyInput, PropertyType, styleParsers} from '../styleProperties';
+
 import {parseRawValue}                                           from './parseRawValue';
 
 export function parsePropertyValue<T extends PropertyName>(propertyName: PropertyName, rawValue: PropertyInput<T>): PropertyType<T> {

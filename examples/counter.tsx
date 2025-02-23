@@ -1,5 +1,5 @@
+import {useState}   from 'react';
 import {TermScreen} from 'terminosaurus';
-import { useState } from 'react';
 
 export function App(screen: TermScreen) {
   const [counter, setCounter] = useState(0);

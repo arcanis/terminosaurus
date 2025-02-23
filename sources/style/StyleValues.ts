@@ -1,4 +1,4 @@
-import { Display, Align, FlexDirection, PositionType } from "yoga-layout/load";
+import {Display, Align, FlexDirection, PositionType} from 'yoga-layout/load';
 
 export const Inherit: unique symbol = Symbol();
 

@@ -1,10 +1,11 @@
-import { Edge } from 'yoga-layout/load';
+import {Edge}                                                                                                            from 'yoga-layout/load';
+
 import {identity, lowerFirst, mapKeys}                                                                                   from '../misc/utils';
+
 import {StyleValues}                                                                                                     from './StyleValues';
 import {repeat, length, character, color, number, list, optional, inherit, ParserInput, ParserType}                      from './styleParsers';
 import {dirtyLayout, dirtyClipping, dirtyRendering, dirtyRenderList, dirtyFocusList, forwardToYoga, forwardToTextLayout} from './styleTriggers';
 import {onNullSwitch}                                                                                                    from './styleTriggers';
-import Yoga from 'yoga-layout';
 
 const simple  = [`+`, `+`, `+`, `+`, `-`, `|`];
 const modern  = [`┌`, `┐`, `└`, `┘`, `─`, `│`];

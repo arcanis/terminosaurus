@@ -1,5 +1,6 @@
-import {TermPty}                           from '../sources/elements/TermPty';
 import {StyleValues, TermScreen, length} from 'terminosaurus';
+
+import {TermPty}                         from '../sources/elements/TermPty';
 
 export function run(screen: TermScreen) {
   const text = new TermPty();

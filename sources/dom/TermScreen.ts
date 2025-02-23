@@ -1,14 +1,15 @@
-import {Info, Key, Mouse, parseTerminalInputs, Production} from 'term-strings/parse';
-import {ansiPattern, cursor, feature, request, screen, style}           from 'term-strings';
-import Observable                                          from 'zen-observable';
+import {Info, Key, Mouse, parseTerminalInputs, Production}    from 'term-strings/parse';
+import {ansiPattern, cursor, feature, request, screen, style} from 'term-strings';
+import Observable                                             from 'zen-observable';
 
-import {TermElement}                                       from './TermElement';
-import {EventOf}                                           from '../misc/EventSource';
-import {Point}                                             from '../misc/Point';
-import {getIntersectingRect, Rect, substractRect}          from '../misc/Rect';
-import {Ruleset}                                           from '../style/Ruleset';
-import {StyleValues}                                       from '../style/StyleValues';
-import {length}                                            from '../style/styleParsers';
+import {EventOf}                                              from '../misc/EventSource';
+import {Point}                                                from '../misc/Point';
+import {getIntersectingRect, Rect, substractRect}             from '../misc/Rect';
+import {Ruleset}                                              from '../style/Ruleset';
+import {StyleValues}                                          from '../style/StyleValues';
+import {length}                                               from '../style/styleParsers';
+
+import {TermElement}                                          from './TermElement';
 
 type Subscription = ReturnType<Observable<any>['subscribe']>;
 
@@ -429,7 +430,6 @@ export class TermScreen {
   };
 
   handleExit = () => {
-
     this.detachScreen();
   };
 

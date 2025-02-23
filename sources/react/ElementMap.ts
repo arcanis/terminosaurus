@@ -1,16 +1,14 @@
-/* eslint-disable @typescript-eslint/naming-convention */
+import React                  from 'react';
 
-import React, {LegacyRef}    from 'react';
-
-import {TermElement}         from '../dom/TermElement';
-import {TermCanvas}          from '../elements/TermCanvas';
-import {TermEditor}          from '../elements/TermEditor';
-import {TermInput}           from '../elements/TermInput';
-import {EventOf, EventSlot}  from '../misc/EventSource';
-import {AllPropertiesInputs} from '../style/styleProperties';
-import { TermPty } from '../elements/TermPty';
-import { TermButton, TermText } from '..';
-import { TermForm } from '../elements/TermForm';
+import {TermElement}          from '../dom/TermElement';
+import {TermCanvas}           from '../elements/TermCanvas';
+import {TermEditor}           from '../elements/TermEditor';
+import {TermForm}             from '../elements/TermForm';
+import {TermInput}            from '../elements/TermInput';
+import {TermPty}              from '../elements/TermPty';
+import {EventOf, EventSlot}   from '../misc/EventSource';
+import {AllPropertiesInputs}  from '../style/styleProperties';
+import {TermButton, TermText} from '..';
 
 type HasChildren = {children?: React.ReactNode};
 
