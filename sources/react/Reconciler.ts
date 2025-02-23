@@ -1,9 +1,9 @@
 import createReconciler, {HostConfig} from 'react-reconciler';
 
-import {ElementMap}                   from '#sources/react/ElementMap';
-import {ReactElement, ReactText}      from '#sources/react/Tree';
-import {isPropertyName, PropertyName} from '#sources/style/styleProperties';
-import {parsePropertyValue}           from '#sources/style/tools/parsePropertyValue';
+import {ElementMap}                   from '../react/ElementMap';
+import {ReactElement, ReactText}      from '../react/Tree';
+import {isPropertyName, PropertyName} from '../style/styleProperties';
+import {parsePropertyValue}           from '../style/tools/parsePropertyValue';
 
 import {
   DefaultEventPriority,

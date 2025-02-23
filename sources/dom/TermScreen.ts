@@ -2,13 +2,15 @@ import {Info, Key, Mouse, parseTerminalInputs, Production} from 'term-strings/pa
 import {ansiPattern, cursor, feature, request, screen, style}           from 'term-strings';
 import Observable                                          from 'zen-observable';
 
-import {TermElement}                                       from '#sources/dom/TermElement';
-import {EventOf}                                           from '#sources/misc/EventSource';
-import {Point}                                             from '#sources/misc/Point';
-import {getIntersectingRect, Rect, substractRect}          from '#sources/misc/Rect';
-import {Ruleset}                                           from '#sources/style/Ruleset';
-import {StyleValues}                                       from '#sources/style/StyleValues';
-import {length}                                            from '#sources/style/styleParsers';
+import {TermElement}                                       from './TermElement';
+import {EventOf}                                           from '../misc/EventSource';
+import {Point}                                             from '../misc/Point';
+import {getIntersectingRect, Rect, substractRect}          from '../misc/Rect';
+import {Ruleset}                                           from '../style/Ruleset';
+import {StyleValues}                                       from '../style/StyleValues';
+import {length}                                            from '../style/styleParsers';
+
+type Subscription = ReturnType<Observable<any>['subscribe']>;
 
 const decoder = new TextDecoder();
 
@@ -55,7 +57,7 @@ export class TermScreen {
   public stdout: ScreenOut | null = null;
 
   // Our subscription to the input events
-  public subscription: ZenObservable.Subscription | null = null;
+  public subscription: Subscription | null = null;
 
   // A timer used to trigger layout / clipping / render updates after a node becomes dirty
   public updateTimer: Promise<void> | null = null;

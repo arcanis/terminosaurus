@@ -1,12 +1,12 @@
 import React, {createContext, useCallback, useContext, useEffect, useRef} from 'react';
 
-import {TermElement}                                                      from '#sources/dom/TermElement';
-import {RunOptions, TermScreen}                                           from '#sources/dom/TermScreen';
-import {run}                                                              from '#sources/index';
-import {Rect}                                                             from '#sources/misc/Rect';
-import {ReactElement}                                                     from '#sources/react/Tree';
+import {TermElement}                                                      from './dom/TermElement';
+import {RunOptions, TermScreen}                                           from './dom/TermScreen';
+import {run}                                                              from './index';
+import {Rect}                                                             from './misc/Rect';
+import {ReactElement}                                                     from './react/Tree';
 
-export *                                                                  from '#sources/index';
+export *                                                                  from './index';
 
 const ScreenContext = createContext<TermScreen | null>(null);
 
@@ -93,7 +93,7 @@ export async function render(arg1: RunOptions | React.ReactNode, arg2?: React.Re
   const opts = typeof arg2 !== `undefined` ? arg1 as RunOptions : {};
   const element = typeof arg2 !== `undefined` ? arg2 : arg1 as React.ReactNode;
 
-  const {Reconciler} = await require(`#sources/react/Reconciler`) as typeof import('#sources/react/Reconciler');
+  const {Reconciler} = await require(`./react/Reconciler`) as typeof import('./react/Reconciler');
 
   Reconciler.injectIntoDevTools({
     bundleType: 1,

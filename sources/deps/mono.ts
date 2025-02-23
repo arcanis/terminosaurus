@@ -1,6 +1,6 @@
 import {Context, createContext} from 'mono-layout';
 
-import {loadMono}               from '#sources/deps/wasm';
+import {loadMono}               from './wasm';
 
 let mono: Context | undefined;
 

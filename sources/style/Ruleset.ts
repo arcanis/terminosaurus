@@ -1,4 +1,4 @@
-import {AllPropertiesTypes, PhysicalPropertyName, PropertyName, castToPropertyMap, expandCompoundProperties} from '#sources/style/styleProperties';
+import {AllPropertiesTypes, PhysicalPropertyName, PropertyName, castToPropertyMap, expandCompoundProperties} from './styleProperties';
 
 export type RulesetChangeEvent = {
   states: Set<string>;

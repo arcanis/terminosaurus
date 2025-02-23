@@ -1,18 +1,21 @@
-import {createContext, YogaConfig} from 'yogini';
+import {type Config, loadYoga} from 'yoga-layout/load';
 
-import {loadYogini}                from '#sources/deps/wasm';
+type Yoga = Awaited<ReturnType<typeof loadYoga>>;
 
-let yoga: YogaConfig | undefined;
+let yoga: Yoga | undefined;
+let yogaConfig: Config | undefined;
+
+function createConfig(yoga: Yoga) {
+  const config = yoga.Config.create();
+  config.setPointScaleFactor(0);
+  return config;
+}
 
 export async function initYoga() {
-  if (typeof yoga === `undefined`) {
-    yoga = await createContext(await loadYogini());
-    yoga.setPointScaleFactor(0);
-  }
-
-  return yoga;
+  yoga ??= await loadYoga();
+  yogaConfig ??= createConfig(yoga);
 }
 
 export function createNode() {
-  return yoga!.createNode();
+  return yoga!.Node.create(yogaConfig);
 }

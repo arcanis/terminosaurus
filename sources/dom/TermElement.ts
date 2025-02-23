@@ -1,29 +1,29 @@
 import {TextLayout}                                                                         from 'mono-layout';
 import {Key, Mouse}                                                                         from 'term-strings/parse';
 import {style}                                                                              from 'term-strings';
-import Yoga, {YogaMeasureMode, YogaNode}                                                    from 'yogini';
+import { Edge, MeasureMode, type Node as YogaNode }                                                    from 'yoga-layout/load';
 
-import {createNode}                                                                         from '#sources/deps/yoga';
-import {TermNode}                                                                           from '#sources/dom/TermNode';
-import {ElementFlags}                                                                       from '#sources/dom/flags';
-import {isChildOf}                                                                          from '#sources/dom/traverse';
-import {EventOf, EventSlot}                                                                 from '#sources/misc/EventSource';
-import {KeySequence}                                                                        from '#sources/misc/KeySequence';
-import {Point}                                                                              from '#sources/misc/Point';
-import {compareRects, emptyRect, getBoundingRect, getIntersectingRect, Rect, substractRect} from '#sources/misc/Rect';
-import {Ruleset}                                                                            from '#sources/style/Ruleset';
-import {StyleManager}                                                                       from '#sources/style/StyleManager';
-import {StyleValues}                                                                        from '#sources/style/StyleValues';
+import {createNode}                                                                         from '../deps/yoga';
+import {TermNode}                                                                           from './TermNode';
+import {ElementFlags}                                                                       from './flags';
+import {isChildOf}                                                                          from './traverse';
+import {EventOf, EventSlot}                                                                 from '../misc/EventSource';
+import {KeySequence}                                                                        from '../misc/KeySequence';
+import {Point}                                                                              from '../misc/Point';
+import {compareRects, emptyRect, getBoundingRect, getIntersectingRect, Rect, substractRect} from '../misc/Rect';
+import {Ruleset}                                                                            from '../style/Ruleset';
+import {StyleManager}                                                                       from '../style/StyleManager';
+import {StyleValues}                                                                        from '../style/StyleValues';
 
-function getPreferredSize(node: TermElement, width: number, widthMeasureMode: YogaMeasureMode, height: number, heightMeasureMode: YogaMeasureMode) {
+function getPreferredSize(node: TermElement, width: number, widthMeasureMode: MeasureMode, height: number, heightMeasureMode: MeasureMode) {
   const min: Point = {
-    x: widthMeasureMode === Yoga.MEASURE_MODE_EXACTLY ? width : 0,
-    y: heightMeasureMode === Yoga.MEASURE_MODE_EXACTLY ? height : 0,
+    x: widthMeasureMode === MeasureMode.Exactly ? width : 0,
+    y: heightMeasureMode === MeasureMode.Exactly ? height : 0,
   };
 
   const max: Point = {
-    x: widthMeasureMode === Yoga.MEASURE_MODE_UNDEFINED ? 0xffffffff : width,
-    y: heightMeasureMode === Yoga.MEASURE_MODE_UNDEFINED ? 0xffffffff : height,
+    x: widthMeasureMode === MeasureMode.Undefined ? 0xffffffff : width,
+    y: heightMeasureMode === MeasureMode.Undefined ? 0xffffffff : height,
   };
 
   const {x, y} = node.getPreferredSize(min, max);
@@ -259,25 +259,25 @@ export class TermElement extends TermNode<TermElement> {
     }, {capture: true});
   }
 
-  #debugPaintRects = false;
+  private debugPaintRectEnabled = false;
 
   get debugPaintRects() {
-    return this.#debugPaintRects;
+    return this.debugPaintRectEnabled;
   }
 
   set debugPaintRects(status: boolean) {
-    this.#debugPaintRects = status;
+    this.debugPaintRectEnabled = status;
     this.queueDirtyRect();
   }
 
-  #caret: Point | null = null;
+  private currentCaret: Point | null = null;
 
   get caret() {
-    return this.#caret;
+    return this.currentCaret;
   }
 
   set caret(caret: Point | null) {
-    this.#caret = caret;
+    this.currentCaret = caret;
     this.rootNode.requestUpdates();
   }
 
@@ -561,7 +561,7 @@ export class TermElement extends TermNode<TermElement> {
     const dirtyScrollNodes: Array<TermElement> = [];
 
     if (this.flags & (ElementFlags.ELEMENT_HAS_DIRTY_LAYOUT | ElementFlags.ELEMENT_HAS_DIRTY_LAYOUT_CHILDREN)) {
-      this.yoga.calculateLayout();
+      this.yoga.calculateLayout(undefined, undefined);
       this.cascadeLayout({dirtyLayoutNodes});
     }
 
@@ -670,11 +670,11 @@ export class TermElement extends TermNode<TermElement> {
         const prevScrollHeight = this.scrollRect.h;
         const isScrolledToBottom = this.scrollRect.y >= this.scrollRect.h - this.elementRect.h;
 
-        const edgeLeft = this.yoga.getComputedBorder(Yoga.EDGE_LEFT);
-        const edgeTop = this.yoga.getComputedBorder(Yoga.EDGE_TOP);
+        const edgeLeft = this.yoga.getComputedBorder(Edge.Left);
+        const edgeTop = this.yoga.getComputedBorder(Edge.Top);
 
-        const minScrollW = this.elementRect.w - edgeLeft - this.yoga.getComputedBorder(Yoga.EDGE_RIGHT);
-        const minScrollH = this.elementRect.h - edgeTop - this.yoga.getComputedBorder(Yoga.EDGE_BOTTOM);
+        const minScrollW = this.elementRect.w - edgeLeft - this.yoga.getComputedBorder(Edge.Right);
+        const minScrollH = this.elementRect.h - edgeTop - this.yoga.getComputedBorder(Edge.Bottom);
 
         this.scrollRect.w = Math.max(minScrollW, this.getInternalContentWidth(), ...this.childNodes.map(child => {
           return child.elementRect.x + child.elementRect.w - edgeLeft;
@@ -687,11 +687,11 @@ export class TermElement extends TermNode<TermElement> {
         if (this.alwaysScrollToBottom && isScrolledToBottom && this.scrollRect.h > prevScrollHeight)
           this.scrollRect.y = Infinity;
 
-        this.contentRect.x = this.yoga.getComputedBorder(Yoga.EDGE_LEFT) + this.yoga.getComputedPadding(Yoga.EDGE_LEFT);
-        this.contentRect.y = this.yoga.getComputedBorder(Yoga.EDGE_TOP) + this.yoga.getComputedPadding(Yoga.EDGE_TOP);
+        this.contentRect.x = this.yoga.getComputedBorder(Edge.Left) + this.yoga.getComputedPadding(Edge.Left);
+        this.contentRect.y = this.yoga.getComputedBorder(Edge.Top) + this.yoga.getComputedPadding(Edge.Top);
 
-        this.contentRect.w = this.scrollRect.w - this.contentRect.x - this.yoga.getComputedBorder(Yoga.EDGE_RIGHT) - this.yoga.getComputedPadding(Yoga.EDGE_RIGHT);
-        this.contentRect.h = this.scrollRect.h - this.contentRect.y - this.yoga.getComputedBorder(Yoga.EDGE_BOTTOM) - this.yoga.getComputedPadding(Yoga.EDGE_BOTTOM);
+        this.contentRect.w = this.scrollRect.w - this.contentRect.x - this.yoga.getComputedBorder(Edge.Right) - this.yoga.getComputedPadding(Edge.Right);
+        this.contentRect.h = this.scrollRect.h - this.contentRect.y - this.yoga.getComputedBorder(Edge.Bottom) - this.yoga.getComputedPadding(Edge.Bottom);
 
         doesScrollChange = this.scrollRect.w !== prevScrollWidth || this.scrollRect.h !== prevScrollHeight;
       }
@@ -720,8 +720,8 @@ export class TermElement extends TermNode<TermElement> {
         const prevScrollY = this.scrollRect.y;
 
         if (this.styleManager.computed.overflow.doesAllowScroll) {
-          const minScrollX = this.elementRect.w - this.yoga.getComputedBorder(Yoga.EDGE_LEFT) - this.yoga.getComputedBorder(Yoga.EDGE_RIGHT);
-          const minScrollY = this.elementRect.h - this.yoga.getComputedBorder(Yoga.EDGE_TOP) - this.yoga.getComputedBorder(Yoga.EDGE_BOTTOM);
+          const minScrollX = this.elementRect.w - this.yoga.getComputedBorder(Edge.Left) - this.yoga.getComputedBorder(Edge.Right);
+          const minScrollY = this.elementRect.h - this.yoga.getComputedBorder(Edge.Top) - this.yoga.getComputedBorder(Edge.Bottom);
 
           this.scrollRect.x = Math.max(0, Math.min(this.scrollRect.x, this.scrollRect.w - minScrollX));
           this.scrollRect.y = Math.max(0, Math.min(this.scrollRect.y, this.scrollRect.h - minScrollY));
@@ -1050,7 +1050,7 @@ export class TermElement extends TermNode<TermElement> {
   set scrollLeft(scrollLeft) {
     this.triggerUpdates();
 
-    const minScrollX = this.elementRect.w - this.yoga.getComputedBorder(Yoga.EDGE_LEFT) - this.yoga.getComputedBorder(Yoga.EDGE_RIGHT);
+    const minScrollX = this.elementRect.w - this.yoga.getComputedBorder(Edge.Left) - this.yoga.getComputedBorder(Edge.Right);
 
     const previousScrollLeft = this.scrollRect.x;
     const newScrollLeft = Math.max(0, Math.min(scrollLeft, this.scrollRect.w - minScrollX));
@@ -1074,7 +1074,7 @@ export class TermElement extends TermNode<TermElement> {
   set scrollTop(scrollTop) {
     this.triggerUpdates();
 
-    const minScrollY = this.elementRect.h - this.yoga.getComputedBorder(Yoga.EDGE_TOP) - this.yoga.getComputedBorder(Yoga.EDGE_BOTTOM);
+    const minScrollY = this.elementRect.h - this.yoga.getComputedBorder(Edge.Top) - this.yoga.getComputedBorder(Edge.Bottom);
 
     const previousScrollTop = this.scrollRect.y;
     const newScrollTop = Math.max(0, Math.min(scrollTop, this.scrollRect.h - minScrollY));

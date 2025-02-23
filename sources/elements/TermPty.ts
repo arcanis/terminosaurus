@@ -1,8 +1,8 @@
 import {IBufferCell, Terminal} from '@xterm/xterm';
 
-import * as pty                from '#sources/deps/node-pty';
-import {TermElement}           from '#sources/dom/TermElement';
-import {makeRuleset}           from '#sources/style/tools/makeRuleset';
+import * as pty                from '../deps/node-pty';
+import {TermElement}           from '../dom/TermElement';
+import {makeRuleset}           from '../style/tools/makeRuleset';
 
 const emptyArray: number[] = [];
 const zeroArray: number[] = [0];

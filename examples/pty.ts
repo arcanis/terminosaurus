@@ -1,7 +1,4 @@
-import {LoremIpsum}                        from 'lorem-ipsum';
-
-import {TermPty}                           from '#sources/elements/TermPty';
-import {stableRandom}                      from '#sources/misc/Rand';
+import {TermPty}                           from '../sources/elements/TermPty';
 import {StyleValues, TermScreen, length} from 'terminosaurus';
 
 export function run(screen: TermScreen) {

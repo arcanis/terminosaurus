@@ -1,4 +1,4 @@
-import {TermElement} from '#sources/dom/TermElement';
+import {TermElement} from '../dom/TermElement';
 
 export type TermCanvasRenderFn = (
   element: TermCanvas,

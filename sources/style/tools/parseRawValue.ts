@@ -1,5 +1,5 @@
-import {camelCase, isPlainObject} from '#sources/misc/utils';
-import {ParserType}               from '#sources/style/styleParsers';
+import {camelCase, isPlainObject} from '../../misc/utils';
+import {ParserType}               from '../styleParsers';
 
 export type Parser =
     | Array<Parser>

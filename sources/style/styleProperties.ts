@@ -1,10 +1,10 @@
-import Yoga                                                                                                              from 'yogini';
-
-import {identity, lowerFirst, mapKeys}                                                                                   from '#sources/misc/utils';
-import {StyleValues}                                                                                                     from '#sources/style/StyleValues';
-import {repeat, length, character, color, number, list, optional, inherit, ParserInput, ParserType}                      from '#sources/style/styleParsers';
-import {dirtyLayout, dirtyClipping, dirtyRendering, dirtyRenderList, dirtyFocusList, forwardToYoga, forwardToTextLayout} from '#sources/style/styleTriggers';
-import {onNullSwitch}                                                                                                    from '#sources/style/styleTriggers';
+import { Edge } from 'yoga-layout/load';
+import {identity, lowerFirst, mapKeys}                                                                                   from '../misc/utils';
+import {StyleValues}                                                                                                     from './StyleValues';
+import {repeat, length, character, color, number, list, optional, inherit, ParserInput, ParserType}                      from './styleParsers';
+import {dirtyLayout, dirtyClipping, dirtyRendering, dirtyRenderList, dirtyFocusList, forwardToYoga, forwardToTextLayout} from './styleTriggers';
+import {onNullSwitch}                                                                                                    from './styleTriggers';
+import Yoga from 'yoga-layout';
 
 const simple  = [`+`, `+`, `+`, `+`, `-`, `|`];
 const modern  = [`┌`, `┐`, `└`, `┘`, `─`, `│`];
@@ -168,25 +168,25 @@ export const physicalProperties = {
 
   left: {
     parsers: styleParsers.left,
-    triggers: [dirtyLayout, forwardToYoga(`setPosition`, Yoga.EDGE_LEFT, forwardToYoga.value)],
+    triggers: [dirtyLayout, forwardToYoga(`setPosition`, Edge.Left, forwardToYoga.value)],
     initial: StyleValues.Length.AutoNaN,
   },
 
   right: {
     parsers: styleParsers.right,
-    triggers: [dirtyLayout, forwardToYoga(`setPosition`, Yoga.EDGE_RIGHT, forwardToYoga.value)],
+    triggers: [dirtyLayout, forwardToYoga(`setPosition`, Edge.Right, forwardToYoga.value)],
     initial: StyleValues.Length.AutoNaN,
   },
 
   top: {
     parsers: styleParsers.top,
-    triggers: [dirtyLayout, forwardToYoga(`setPosition`, Yoga.EDGE_TOP, forwardToYoga.value)],
+    triggers: [dirtyLayout, forwardToYoga(`setPosition`, Edge.Top, forwardToYoga.value)],
     initial: StyleValues.Length.AutoNaN,
   },
 
   bottom: {
     parsers: styleParsers.bottom,
-    triggers: [dirtyLayout, forwardToYoga(`setPosition`, Yoga.EDGE_BOTTOM, forwardToYoga.value)],
+    triggers: [dirtyLayout, forwardToYoga(`setPosition`, Edge.Bottom, forwardToYoga.value)],
     initial: StyleValues.Length.AutoNaN,
   },
 
@@ -198,25 +198,25 @@ export const physicalProperties = {
 
   marginLeft: {
     parsers: styleParsers.marginLeft,
-    triggers: [dirtyLayout, forwardToYoga(`setMargin`, Yoga.EDGE_LEFT, forwardToYoga.value)],
+    triggers: [dirtyLayout, forwardToYoga(`setMargin`, Edge.Left, forwardToYoga.value)],
     initial: StyleValues.Length.Zero,
   },
 
   marginRight: {
     parsers: styleParsers.marginRight,
-    triggers: [dirtyLayout, forwardToYoga(`setMargin`, Yoga.EDGE_RIGHT, forwardToYoga.value)],
+    triggers: [dirtyLayout, forwardToYoga(`setMargin`, Edge.Right, forwardToYoga.value)],
     initial: StyleValues.Length.Zero,
   },
 
   marginTop: {
     parsers: styleParsers.marginTop,
-    triggers: [dirtyLayout, forwardToYoga(`setMargin`, Yoga.EDGE_TOP, forwardToYoga.value)],
+    triggers: [dirtyLayout, forwardToYoga(`setMargin`, Edge.Top, forwardToYoga.value)],
     initial: StyleValues.Length.Zero,
   },
 
   marginBottom: {
     parsers: styleParsers.marginBottom,
-    triggers: [dirtyLayout, forwardToYoga(`setMargin`, Yoga.EDGE_BOTTOM, forwardToYoga.value)],
+    triggers: [dirtyLayout, forwardToYoga(`setMargin`, Edge.Bottom, forwardToYoga.value)],
     initial: StyleValues.Length.Zero,
   },
 
@@ -282,25 +282,25 @@ export const physicalProperties = {
 
   borderLeftCharacter: {
     parsers: styleParsers.borderLeftCharacter,
-    triggers: [onNullSwitch(dirtyLayout), dirtyRendering, forwardToYoga(`setBorder`, Yoga.EDGE_LEFT, (value: any) => value !== null ? 1 : 0)],
+    triggers: [onNullSwitch(dirtyLayout), dirtyRendering, forwardToYoga(`setBorder`, Edge.Left, (value: any) => value !== null ? 1 : 0)],
     initial: null,
   },
 
   borderRightCharacter: {
     parsers: styleParsers.borderRightCharacter,
-    triggers: [onNullSwitch(dirtyLayout), dirtyRendering, forwardToYoga(`setBorder`, Yoga.EDGE_RIGHT, (value: any) => value !== null ? 1 : 0)],
+    triggers: [onNullSwitch(dirtyLayout), dirtyRendering, forwardToYoga(`setBorder`, Edge.Right, (value: any) => value !== null ? 1 : 0)],
     initial: null,
   },
 
   borderTopCharacter: {
     parsers: styleParsers.borderTopCharacter,
-    triggers: [onNullSwitch(dirtyLayout), dirtyRendering, forwardToYoga(`setBorder`, Yoga.EDGE_TOP, (value: any) => value !== null ? 1 : 0)],
+    triggers: [onNullSwitch(dirtyLayout), dirtyRendering, forwardToYoga(`setBorder`, Edge.Top, (value: any) => value !== null ? 1 : 0)],
     initial: null,
   },
 
   borderBottomCharacter: {
     parsers: styleParsers.borderBottomCharacter,
-    triggers: [onNullSwitch(dirtyLayout), dirtyRendering, forwardToYoga(`setBorder`, Yoga.EDGE_BOTTOM, (value: any) => value !== null ? 1 : 0)],
+    triggers: [onNullSwitch(dirtyLayout), dirtyRendering, forwardToYoga(`setBorder`, Edge.Bottom, (value: any) => value !== null ? 1 : 0)],
     initial: null,
   },
 
@@ -330,25 +330,25 @@ export const physicalProperties = {
 
   paddingLeft: {
     parsers: styleParsers.paddingLeft,
-    triggers: [dirtyLayout, forwardToYoga(`setPadding`, Yoga.EDGE_LEFT, forwardToYoga.value)],
+    triggers: [dirtyLayout, forwardToYoga(`setPadding`, Edge.Left, forwardToYoga.value)],
     initial: StyleValues.Length.Zero,
   },
 
   paddingRight: {
     parsers: styleParsers.paddingRight,
-    triggers: [dirtyLayout, forwardToYoga(`setPadding`, Yoga.EDGE_RIGHT, forwardToYoga.value)],
+    triggers: [dirtyLayout, forwardToYoga(`setPadding`, Edge.Right, forwardToYoga.value)],
     initial: StyleValues.Length.Zero,
   },
 
   paddingTop: {
     parsers: styleParsers.paddingTop,
-    triggers: [dirtyLayout, forwardToYoga(`setPadding`, Yoga.EDGE_TOP, forwardToYoga.value)],
+    triggers: [dirtyLayout, forwardToYoga(`setPadding`, Edge.Top, forwardToYoga.value)],
     initial: StyleValues.Length.Zero,
   },
 
   paddingBottom: {
     parsers: styleParsers.paddingBottom,
-    triggers: [dirtyLayout, forwardToYoga(`setPadding`, Yoga.EDGE_BOTTOM, forwardToYoga.value)],
+    triggers: [dirtyLayout, forwardToYoga(`setPadding`, Edge.Bottom, forwardToYoga.value)],
     initial: StyleValues.Length.Zero,
   },
 

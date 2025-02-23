@@ -1,10 +1,4 @@
-import {LoremIpsum}                        from 'lorem-ipsum';
-import path from 'path';
-import fs from 'fs';
-
-import {TermPty}                           from '#sources/elements/TermPty';
-import {stableRandom}                      from '#sources/misc/Rand';
-import {StyleValues, TermElement, TermScreen, length} from 'terminosaurus';
+import {TermScreen} from 'terminosaurus';
 import { useState } from 'react';
 
 export function App(screen: TermScreen) {

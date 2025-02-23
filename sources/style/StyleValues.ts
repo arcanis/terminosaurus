@@ -1,4 +1,4 @@
-import Yoga from 'yogini';
+import { Display, Align, FlexDirection, PositionType } from "yoga-layout/load";
 
 export const Inherit: unique symbol = Symbol();
 
@@ -69,8 +69,8 @@ export const StyleValues = {
   },
 
   Display: yogaEnumToStyle({
-    None: Yoga.DISPLAY_NONE,
-    Flex: Yoga.DISPLAY_FLEX,
+    None: Display.None,
+    Flex: Display.Flex,
   }),
 
   TextAlign: enumToStyle([
@@ -105,25 +105,25 @@ export const StyleValues = {
   ]),
 
   FlexAlign: yogaEnumToStyle({
-    Auto: Yoga.ALIGN_AUTO,
+    Auto: Align.Auto,
 
-    FlexStart: Yoga.ALIGN_FLEX_START,
-    FlexEnd: Yoga.ALIGN_FLEX_END,
+    FlexStart: Align.FlexStart,
+    FlexEnd: Align.FlexEnd,
 
-    Center: Yoga.ALIGN_CENTER,
+    Center: Align.Center,
 
-    SpaceBetween: Yoga.ALIGN_SPACE_BETWEEN,
-    SpaceAround: Yoga.ALIGN_SPACE_AROUND,
+    SpaceBetween: Align.SpaceBetween,
+    SpaceAround: Align.SpaceAround,
 
-    Stretch: Yoga.ALIGN_STRETCH,
+    Stretch: Align.Stretch,
   }),
 
   FlexDirection: yogaEnumToStyle({
-    Row: Yoga.FLEX_DIRECTION_ROW,
-    RowReverse: Yoga.FLEX_DIRECTION_ROW_REVERSE,
+    Row: FlexDirection.Row,
+    RowReverse: FlexDirection.RowReverse,
 
-    Column: Yoga.FLEX_DIRECTION_COLUMN,
-    ColumnReverse: Yoga.FLEX_DIRECTION_COLUMN_REVERSE,
+    Column: FlexDirection.Column,
+    ColumnReverse: FlexDirection.ColumnReverse,
   }),
 
   BackgroundClip: {
@@ -161,25 +161,25 @@ export const StyleValues = {
       isAbsolutelyPositioned: false,
       isPositioned: true,
       isScrollAware: true,
-      yoga: Yoga.POSITION_TYPE_RELATIVE,
+      yoga: PositionType.Relative,
     },
     Sticky: {
       isAbsolutelyPositioned: false,
       isPositioned: true,
       isScrollAware: true,
-      yoga: Yoga.POSITION_TYPE_RELATIVE,
+      yoga: PositionType.Relative,
     },
     Absolute: {
       isAbsolutelyPositioned: true,
       isPositioned: true,
       isScrollAware: true,
-      yoga: Yoga.POSITION_TYPE_ABSOLUTE,
+      yoga: PositionType.Absolute,
     },
     Fixed: {
       isAbsolutelyPositioned: true,
       isPositioned: true,
       isScrollAware: false,
-      yoga: Yoga.POSITION_TYPE_ABSOLUTE,
+      yoga: PositionType.Absolute,
     },
   },
 

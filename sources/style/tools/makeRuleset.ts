@@ -1,5 +1,5 @@
-import {Ruleset}            from '#sources/style/Ruleset';
-import {AllPropertiesTypes} from '#sources/style/styleProperties';
+import {Ruleset}            from '../Ruleset';
+import {AllPropertiesTypes} from '../styleProperties';
 
 export function makeRuleset(opts: Record<string, Partial<AllPropertiesTypes>>) {
   const ruleset = new Ruleset();

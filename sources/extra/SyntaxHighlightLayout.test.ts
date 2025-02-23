@@ -1,6 +1,6 @@
-import theme                          from '#data/themes/WinterIsComing.json';
-import {initMonoLayout, createLayout} from '#sources/deps/mono';
-import {addSyntaxHighlightSupport}    from '#sources/extra/SyntaxHighlightLayout';
+import theme                          from '../../data/themes/WinterIsComing.json';
+import {initMonoLayout, createLayout} from '../deps/mono';
+import {addSyntaxHighlightSupport}    from '../extra/SyntaxHighlightLayout';
 
 beforeAll(async () => {
   await initMonoLayout();

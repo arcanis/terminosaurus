@@ -1,5 +1,5 @@
-import {TermPty}    from '#sources/elements/TermPty';
 import {TermScreen} from 'terminosaurus';
+import {TermPty}    from '../sources/elements/TermPty';
 
 import fs           from 'fs';
 import path         from 'path';

@@ -1,5 +1,5 @@
-import {Ruleset}      from '#sources/style/Ruleset';
-import {StyleManager} from '#sources/style/StyleManager';
+import {Ruleset}      from './Ruleset';
+import {StyleManager} from './StyleManager';
 
 export class ClassList {
   constructor(private styleManager: StyleManager) {

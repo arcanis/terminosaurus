@@ -1,5 +1,5 @@
-import {TermElement} from '#sources/dom/TermElement';
-import {EventSlot}   from '#sources/misc/EventSource';
+import {TermElement} from '../dom/TermElement';
+import {EventSlot}   from '../misc/EventSource';
 
 export class TermForm extends TermElement {
   public onSubmit = new EventSlot(this as TermForm, `onSubmit`, {});

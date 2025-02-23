@@ -2,7 +2,7 @@ import {TextLayout, TextOperation}                                              
 import {style}                                                                         from 'term-strings';
 import {IGrammar, INITIAL, IRawTheme, ITokenizeLineResult2, parseRawGrammar, Registry} from 'vscode-textmate';
 
-import {initOniguruma}                                                                 from '#sources/deps/oniguruma';
+import {initOniguruma}                                                                 from '../deps/oniguruma';
 
 export type Theme = {
   tokenColors: IRawTheme[`settings`];

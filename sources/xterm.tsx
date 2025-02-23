@@ -5,7 +5,7 @@ import '@xterm/xterm/css/xterm.css';
 import { FitAddon } from '@xterm/addon-fit';
 import {Terminal}    from '@xterm/xterm';
 import {useCallback, useEffect, useRef} from 'react';
-import { ScreenIn, ScreenOut } from 'terminosaurus';
+import { ScreenIn, ScreenOut } from './index';
 
 export type XTermScreenIn = ScreenIn & {
     write: (data: string) => void;

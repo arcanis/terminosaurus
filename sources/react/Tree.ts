@@ -1,5 +1,5 @@
-import {TermElement} from '#sources/dom/TermElement';
-import {TermText}    from '#sources/index';
+import {TermElement} from '../dom/TermElement';
+import {TermText}    from '../index';
 
 export abstract class ReactNode {
   prev: ReactNode | null = null;

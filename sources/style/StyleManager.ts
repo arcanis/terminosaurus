@@ -1,13 +1,13 @@
-import {TermElement}                                                                    from '#sources/dom/TermElement';
-import {Ruleset, RulesetChangeEvent}                                                    from '#sources/style/Ruleset';
-import {StyleValues}                                                                    from '#sources/style/StyleValues';
-import {PropertyName, isPhysicalPropertyName, physicalProperties, PhysicalPropertyName} from '#sources/style/styleProperties';
-import {getSpecificity}                                                                 from '#sources/style/tools/getSpecificity';
+import {TermElement}                                                                    from '../dom/TermElement';
+import {Ruleset, RulesetChangeEvent}                                                    from './Ruleset';
+import {StyleValues}                                                                    from './StyleValues';
+import {PropertyName, isPhysicalPropertyName, physicalProperties, PhysicalPropertyName} from './styleProperties';
+import {getSpecificity}                                                                 from './tools/getSpecificity';
 import {
   defaultComputedStyles,
   defaultInheritedStyles,
   defaultTriggeredStyles,
-} from '#sources/style/styleProperties';
+} from './styleProperties';
 
 export class StyleManager {
   public states = new Set<string>();

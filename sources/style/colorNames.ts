@@ -1,4 +1,4 @@
-{
+export const colorNames = {
   "aliceblue": "#f0f8ff",
   "antiquewhite": "#faebd7",
   "aqua": "#00ffff",

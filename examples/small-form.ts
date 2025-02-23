@@ -5,7 +5,6 @@ import {
   TermText,
   StyleValues,
   length,
-  TermButton,
 } from 'terminosaurus';
 
 export function run(screen: TermScreen) {

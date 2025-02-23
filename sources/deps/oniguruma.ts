@@ -1,6 +1,6 @@
 import {loadWASM, OnigScanner, OnigString} from 'vscode-oniguruma';
 
-import {loadOniguruma}                     from '#sources/deps/wasm';
+import {loadOniguruma}                     from './wasm';
 
 let ready = false;
 

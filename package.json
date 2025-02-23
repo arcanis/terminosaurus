@@ -1,7 +1,7 @@
 {
   "name": "terminosaurus",
   "version": "3.0.0-rc.5",
-  "packageManager": "yarn@4.1.0+sha224.bc24d7f5afc738464f3d4e95f4e6e7829a35cee54a0fd527ea5baa83",
+  "packageManager": "yarn@4.6.0+sha256.eaf1eeabc164a44ca0b65dbdccd54af7e55f3ff9294b3ff318d5aaec92f2b20b",
   "workspaces": [
     "website"
   ],
@@ -22,19 +22,22 @@
       "browser": "./sources/deps/wasm.browser.ts",
       "default": "./sources/deps/wasm.ts"
     },
-    "#sources/*": "./sources/*.ts"
+    "#sources/*": {
+      "types": "./dist/*.d.ts",
+      "default": "./sources/*.tsx"
+    }
   },
   "dependencies": {
     "@arcanis/slice-ansi": "^2.0.1",
     "@xterm/addon-fit": "^0.9.0",
-    "mono-layout": "^0.14.3",
+    "mono-layout": "^0.14.4",
     "node-pty": "1.1.0-beta27",
     "react-reconciler": "^0.29.0",
     "react-refresh": "^0.14.0",
     "term-strings": "^0.16.2",
     "vscode-oniguruma": "^1.7.0",
     "vscode-textmate": "^8.0.0",
-    "yogini": "^0.4.2",
+    "yoga-layout": "^3.2.1",
     "zen-observable": "^0.9.0"
   },
   "devDependencies": {
@@ -46,21 +49,24 @@
     "@types/react-refresh": "^0.14.0",
     "@types/zen-observable": "^0.8.3",
     "@xterm/xterm": "^5.4.0",
+    "@yarnpkg/eslint-config": "^2.1.0",
     "clipanion": "^3.2.1",
     "esbuild": "^0.20.1",
+    "eslint": "^9.21.0",
     "lorem-ipsum": "^2.0.8",
     "ollama": "^0.5.12",
     "react": "^18.2.0",
     "react-redux": "^9.2.0",
     "tailwindcss": "^3.4.1",
     "tsx": "^4.7.1",
-    "typescript": "^5.3.3",
+    "typescript": "^5.7.3",
     "vitest": "^1.3.1"
   },
   "peerDependencies": {
     "react": "^18.2.0"
   },
   "publishConfig": {
+    "imports": {},
     "exports": {
       ".": "./dist/index.js",
       "./package.json": "./package.json",
@@ -69,7 +75,8 @@
     }
   },
   "scripts": {
-    "prepack": "node --import tsx ./scripts/build.ts"
+    "prepack": "rm -rf dist && node --import tsx ./scripts/build.ts && yarn tsc -p tsconfig.types.json",
+    "postpack": "rm -rf dist"
   },
   "files": [
     "dist",

@@ -2,12 +2,12 @@
 
 import React, {LegacyRef}    from 'react';
 
-import {TermElement}         from '#sources/dom/TermElement';
-import {TermCanvas}          from '#sources/elements/TermCanvas';
-import {TermEditor}          from '#sources/elements/TermEditor';
-import {TermInput}           from '#sources/elements/TermInput';
-import {EventOf, EventSlot}  from '#sources/misc/EventSource';
-import {AllPropertiesInputs} from '#sources/style/styleProperties';
+import {TermElement}         from '../dom/TermElement';
+import {TermCanvas}          from '../elements/TermCanvas';
+import {TermEditor}          from '../elements/TermEditor';
+import {TermInput}           from '../elements/TermInput';
+import {EventOf, EventSlot}  from '../misc/EventSource';
+import {AllPropertiesInputs} from '../style/styleProperties';
 import { TermPty } from '../elements/TermPty';
 import { TermButton, TermText } from '..';
 import { TermForm } from '../elements/TermForm';

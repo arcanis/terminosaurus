@@ -1,8 +1,8 @@
-import {findAncestorByPredicate} from '#sources/dom/traverse';
-import {TermForm}                from '#sources/elements/TermForm';
-import {TermText}                from '#sources/elements/TermText';
-import {color, StyleValues}      from '#sources/index';
-import {makeRuleset}             from '#sources/style/tools/makeRuleset';
+import {findAncestorByPredicate} from '../dom/traverse';
+import {TermForm}                from '../elements/TermForm';
+import {TermText}                from '../elements/TermText';
+import {color, StyleValues}      from '../index';
+import {makeRuleset}             from '../style/tools/makeRuleset';
 
 const ruleset = makeRuleset({
   [`*`]: {

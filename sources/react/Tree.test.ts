@@ -1,8 +1,8 @@
-import '#sources/testing';
+import '../testing';
 
-import {init, TermElement}       from 'terminosaurus';
+import {init, TermElement}       from '../index';
 
-import {ReactElement, ReactText} from '#sources/react/Tree';
+import {ReactElement, ReactText} from '../react/Tree';
 
 beforeAll(async () => {
   await init();

@@ -1,9 +1,9 @@
 import {style}                 from 'term-strings';
 
-import {isFinite, isUndefined} from '#sources/misc/utils';
-import {StyleValues}           from '#sources/style/StyleValues';
-import colorNames              from '#sources/style/colorNames.json';
-import {Parser, parseRawValue} from '#sources/style/tools/parseRawValue';
+import {isFinite, isUndefined} from '../misc/utils';
+import {StyleValues}           from './StyleValues';
+import {colorNames}           from './colorNames';
+import {Parser, parseRawValue} from './tools/parseRawValue';
 
 export type ParserType<T> =
   | T extends Array<infer Parser>

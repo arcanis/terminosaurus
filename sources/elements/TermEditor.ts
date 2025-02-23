@@ -1,5 +1,5 @@
-import {TermInput}                        from '#sources/elements/TermInput';
-import {addSyntaxHighlightSupport, Theme} from '#sources/extra/SyntaxHighlightLayout';
+import {TermInput}                        from '../elements/TermInput';
+import {addSyntaxHighlightSupport, Theme} from '../extra/SyntaxHighlightLayout';
 
 export class TermEditor extends TermInput {
   public enterIsNewline = true;

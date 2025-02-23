@@ -1,6 +1,6 @@
-import {initMonoLayout}         from '#sources/deps/mono';
-import {initYoga}               from '#sources/deps/yoga';
-import {RunOptions, TermScreen} from '#sources/dom/TermScreen';
+import {initMonoLayout}         from './deps/mono';
+import {initYoga}               from './deps/yoga';
+import {RunOptions, TermScreen} from './dom/TermScreen';
 
 export async function init() {
   await Promise.all([initMonoLayout(), initYoga()]);
@@ -22,19 +22,19 @@ export async function run(arg1: RunOptions | ((screen: TermScreen) => void | und
   });
 }
 
-export {TermElement} from '#sources/dom/TermElement';
-export {TermScreen, type ScreenIn, type ScreenOut, type ScreenStreams} from '#sources/dom/TermScreen';
+export {TermElement} from './dom/TermElement';
+export {TermScreen, type ScreenIn, type ScreenOut, type ScreenStreams} from './dom/TermScreen';
 
-export {Ruleset} from '#sources/style/Ruleset';
-export {StyleValues} from '#sources/style/StyleValues';
-export * from '#sources/style/styleParsers';
+export {Ruleset} from './style/Ruleset';
+export {StyleValues} from './style/StyleValues';
+export * from './style/styleParsers';
 
-export {TermButton} from '#sources/elements/TermButton';
-export {TermInput} from '#sources/elements/TermInput';
-export {TermText} from '#sources/elements/TermText';
+export {TermButton} from './elements/TermButton';
+export {TermInput} from './elements/TermInput';
+export {TermText} from './elements/TermText';
 
-export {makeRuleset} from '#sources/style/tools/makeRuleset';
-export {parsePropertyValue} from '#sources/style/tools/parsePropertyValue';
+export {makeRuleset} from './style/tools/makeRuleset';
+export {parsePropertyValue} from './style/tools/parsePropertyValue';
 
-export {EventSlot, Event, type EventOf} from '#sources/misc/EventSource';
-export {PassThrough} from '#sources/misc/PassThrough';
+export {EventSlot, Event, type EventOf} from './misc/EventSource';
+export {PassThrough} from './misc/PassThrough';

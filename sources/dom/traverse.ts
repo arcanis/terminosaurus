@@ -1,4 +1,4 @@
-import {TermElement} from '#sources/dom/TermElement';
+import {TermElement} from './TermElement';
 
 export function findAncestorByPredicate<T extends TermElement>(node: TermElement, predicate: (element: TermElement) => element is T): T;
 export function findAncestorByPredicate(node: TermElement, predicate: (element: TermElement) => boolean): TermElement | null;

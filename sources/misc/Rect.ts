@@ -1,4 +1,4 @@
-import {Point} from '#sources/misc/Point';
+import {Point} from './Point';
 
 export type Rect = {
   x: number;

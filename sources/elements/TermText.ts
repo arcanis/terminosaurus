@@ -1,13 +1,13 @@
 import {TextLayout}              from 'mono-layout';
 
-import {createLayout}            from '#sources/deps/mono';
-import {TermElement}             from '#sources/dom/TermElement';
-import {findAncestorByPredicate} from '#sources/dom/traverse';
-import {TermForm}                from '#sources/elements/TermForm';
-import {EventSlot}               from '#sources/misc/EventSource';
-import {Point}                   from '#sources/misc/Point';
-import {TextBuffer}              from '#sources/misc/TextBuffer';
-import {StyleValues}             from '#sources/style/StyleValues';
+import {createLayout}            from '../deps/mono';
+import {TermElement}             from '../dom/TermElement';
+import {findAncestorByPredicate} from '../dom/traverse';
+import {TermForm}                from '../elements/TermForm';
+import {EventSlot}               from '../misc/EventSource';
+import {Point}                   from '../misc/Point';
+import {TextBuffer}              from '../misc/TextBuffer';
+import {StyleValues}             from '../style/StyleValues';
 
 const decoder = new TextDecoder();
 

@@ -1,7 +1,7 @@
 import {useState} from 'react';
 
-import grammar    from '#data/languages/TypeScript.tmLanguage.json';
-import theme      from '#data/themes/WinterIsComing.json';
+import grammar    from '../data/languages/TypeScript.tmLanguage.json';
+import theme      from '../data/themes/WinterIsComing.json';
 
 import {
   EventOf,

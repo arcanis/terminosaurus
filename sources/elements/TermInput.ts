@@ -1,8 +1,8 @@
-import {TermText}      from '#sources/elements/TermText';
-import {StyleValues}   from '#sources/index';
-import {Point}         from '#sources/misc/Point';
-import {color, length} from '#sources/style/styleParsers';
-import {makeRuleset}   from '#sources/style/tools/makeRuleset';
+import {TermText}      from '../elements/TermText';
+import {StyleValues}   from '../index';
+import {Point}         from '../misc/Point';
+import {color, length} from '../style/styleParsers';
+import {makeRuleset}   from '../style/tools/makeRuleset';
 
 const ruleset = makeRuleset({
   [`*`]: {

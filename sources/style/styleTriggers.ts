@@ -1,6 +1,5 @@
-import {YogaNode}         from 'yogini';
-
-import type {TermElement} from '#sources/dom/TermElement';
+import type {TermElement} from '../dom/TermElement';
+import {Node as YogaNode} from 'yoga-layout/load';
 
 export function dirtyLayout(node: TermElement) {
   node.setDirtyLayoutFlag();
